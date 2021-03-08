@@ -1,6 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-class gui
+class DatabaseGUI
 {
     public static void main(String args[])
     {
