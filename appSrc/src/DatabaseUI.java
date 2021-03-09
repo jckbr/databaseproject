@@ -1,6 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
-class DatabaseGUI
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class DatabaseUI
 {
     public static void main(String args[])
     {
@@ -12,13 +15,13 @@ class DatabaseGUI
         JButton newButton = new JButton("New");
         newButton.setBounds(0,50,50,50);
         JButton delButton = new JButton("Delete");
-        newButton.setBounds(0,50,100,50);
+        delButton.setBounds(0,50,100,50);
         JButton updateButton = new JButton("Update");
-        newButton.setBounds(0,50,100,50);
+        updateButton.setBounds(0,50,100,50);
         JButton nextButton = new JButton("Next");
-        newButton.setBounds(0,50,60,50);
+        nextButton.setBounds(0,50,100,50);
         JButton prevButton = new JButton("Previous");
-        newButton.setBounds(0,50,100,50);
+        prevButton.setBounds(0,50,100,50);
         frame.add(newButton);
         frame.add(delButton);
         frame.add(updateButton);
@@ -35,5 +38,9 @@ class DatabaseGUI
         frame.add(sp);
 
         frame.setVisible(true);
+
+        // -------------------------------------------------------
+
+        newButton.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e){}});
     }
 }
