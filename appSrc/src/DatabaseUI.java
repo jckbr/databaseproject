@@ -6,6 +6,8 @@ import java.sql.*;
 
 public class DatabaseUI
 {
+	public static Connection conn = null;
+	
     public static void main(String args[]) throws ClassNotFoundException
     {
         // Creating the Frame
@@ -13,6 +15,9 @@ public class DatabaseUI
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 400);
 
+        //connect the database
+        connect();
+        
         // Adding buttons
         JButton newButton = new JButton("New");
         newButton.setBounds(0,50,50,50);
@@ -34,9 +39,15 @@ public class DatabaseUI
         frame.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         // Fill in data
+        /*
         String column[] = {"ID", "Name", "Interests"};
         String data[][] = {{"01", "Jack", "Action"},
                            {"02", "Kaylee", "Racing"}};
+                           
+                           */
+        
+        String column[] = null;
+        String data[][] = null;
         JTable table = new JTable(data, column);
         table.setBounds(0,40,300,300);
         JScrollPane sp = new JScrollPane(table);
@@ -48,29 +59,21 @@ public class DatabaseUI
 
         newButton.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e){}});
         
-        connect();
     }
     
     public static void connect() throws ClassNotFoundException {
-    	Connection conn = null;
+    	//Connection conn = null;
     	
     	try {
     		Class.forName("org.sqlite.JDBC");
-    		String url = "jdbc:sqlite:C:/Users/hpque_5t/Documents/DatabaseSystems/projectFiles/databaseproject/gameStoreData.db";
+    		String url = "jdbc:sqlite:gameStoreData.db";
     		
     		conn = DriverManager.getConnection(url);
     		
     		System.out.println("Connection success");
-    	}catch(SQLException e) {
+    	}catch(Exception e) {
     		System.out.println(e.getMessage());
-    	}finally {
-    		try {  
-                if (conn != null) {  
-                    conn.close();  
-                }  
-            } catch (SQLException ex) {  
-                System.out.println(ex.getMessage());  
-            }  
-    	}
+    	} 
+    	
     }
 }
