@@ -54,21 +54,30 @@ public class DatabaseUI
     public static void connect() throws ClassNotFoundException {
     	Connection conn = null;
     	
-    	try {
+    	try
+        {
     		Class.forName("org.sqlite.JDBC");
-    		String url = "jdbc:sqlite:C:/Users/hpque_5t/Documents/DatabaseSystems/projectFiles/databaseproject/gameStoreData.db";
+    		String url = "jdbc:sqlite:gameStoreData.db";
     		
     		conn = DriverManager.getConnection(url);
     		
     		System.out.println("Connection success");
-    	}catch(SQLException e) {
+    	}
+    	catch(Exception e)
+        {
     		System.out.println(e.getMessage());
-    	}finally {
-    		try {  
-                if (conn != null) {  
+    	}
+    	finally
+        {
+    		try
+            {
+                if (conn != null)
+                {
                     conn.close();  
                 }  
-            } catch (SQLException ex) {  
+            }
+    		catch (SQLException ex)
+            {
                 System.out.println(ex.getMessage());  
             }  
     	}
