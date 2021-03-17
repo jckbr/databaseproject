@@ -2,10 +2,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.*;
 
 public class DatabaseUI
 {
-    public static void main(String args[])
+    public static void main(String args[]) throws ClassNotFoundException
     {
         // Creating the Frame
         JFrame frame = new JFrame("Game Rental Database");
@@ -46,5 +47,30 @@ public class DatabaseUI
         // Button Listeners
 
         newButton.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e){}});
+        
+        connect();
+    }
+    
+    public static void connect() throws ClassNotFoundException {
+    	Connection conn = null;
+    	
+    	try {
+    		Class.forName("org.sqlite.JDBC");
+    		String url = "jdbc:sqlite:C:/Users/hpque_5t/Documents/DatabaseSystems/projectFiles/databaseproject/gameStoreData.db";
+    		
+    		conn = DriverManager.getConnection(url);
+    		
+    		System.out.println("Connection success");
+    	}catch(SQLException e) {
+    		System.out.println(e.getMessage());
+    	}finally {
+    		try {  
+                if (conn != null) {  
+                    conn.close();  
+                }  
+            } catch (SQLException ex) {  
+                System.out.println(ex.getMessage());  
+            }  
+    	}
     }
 }
