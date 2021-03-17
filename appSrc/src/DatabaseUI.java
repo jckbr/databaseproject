@@ -20,14 +20,15 @@ public class DatabaseUI
         try
         {
     		Class.forName("org.sqlite.JDBC");
-    		String url = "jdbc:sqlite:./gameStoreData.db";
-    		
+    		String url = "jdbc:sqlite:gameStoreData.db";
+
     		conn = DriverManager.getConnection(url);
-    		
+
     		System.out.println("Connection success");
     	}catch(Exception e) {
     		System.out.println(e.getMessage());
     		System.out.println("Connection failed");
+    		System.exit(0);
     	} 
         Statement stmt = conn.createStatement();
         
@@ -85,7 +86,6 @@ public class DatabaseUI
         // Button Listeners
 
         newButton.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e){}});
-        
     }
     
 }
