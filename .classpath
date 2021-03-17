@@ -3,5 +3,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="appSrc/src"/>
 	<classpathentry kind="src" path="resource"/>
+	<classpathentry kind="lib" path="resource/sqlite-jdbc-3.7.2.jar"/>
 	<classpathentry kind="output" path="out/production/appSrc"/>
 </classpath>

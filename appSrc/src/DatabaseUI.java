@@ -20,7 +20,7 @@ public class DatabaseUI
         try
         {
     		Class.forName("org.sqlite.JDBC");
-    		String url = "jdbc:sqlite:gameStoreData.db";
+    		String url = "jdbc:sqlite:./appSrc/src/gameStoreData.db";
 
     		conn = DriverManager.getConnection(url);
 
@@ -59,7 +59,7 @@ public class DatabaseUI
                            {"02", "Kaylee", "Racing"}};
                            
                            */
-        String sql = "SELECT * FROM Games;";
+        String sql = "SELECT * FROM 'Games';";
         
         ResultSet rs = stmt.executeQuery(sql);
         
