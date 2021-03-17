@@ -64,7 +64,8 @@ public class DatabaseUI
     public static void connect() throws ClassNotFoundException {
     	//Connection conn = null;
     	
-    	try {
+    	try
+        {
     		Class.forName("org.sqlite.JDBC");
     		String url = "jdbc:sqlite:gameStoreData.db";
     		
