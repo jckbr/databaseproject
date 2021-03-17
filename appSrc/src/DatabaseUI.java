@@ -6,9 +6,10 @@ import java.sql.*;
 
 public class DatabaseUI
 {
-	public static Connection conn = null;
+	public static Connection conn;
+	//public static Statement stmt = null;
 	
-    public static void main(String args[]) throws ClassNotFoundException
+    public static void main(String args[]) throws ClassNotFoundException, SQLException
     {
         // Creating the Frame
         JFrame frame = new JFrame("Game Rental Database");
@@ -16,7 +17,19 @@ public class DatabaseUI
         frame.setSize(500, 400);
 
         //connect the database
-        connect();
+        try
+        {
+    		Class.forName("org.sqlite.JDBC");
+    		String url = "jdbc:sqlite:./gameStoreData.db";
+    		
+    		conn = DriverManager.getConnection(url);
+    		
+    		System.out.println("Connection success");
+    	}catch(Exception e) {
+    		System.out.println(e.getMessage());
+    		System.out.println("Connection failed");
+    	} 
+        Statement stmt = conn.createStatement();
         
         // Adding buttons
         JButton newButton = new JButton("New");
@@ -45,13 +58,27 @@ public class DatabaseUI
                            {"02", "Kaylee", "Racing"}};
                            
                            */
+        String sql = "SELECT * FROM Games;";
         
-        String column[] = null;
-        String data[][] = null;
-        JTable table = new JTable(data, column);
-        table.setBounds(0,40,300,300);
-        JScrollPane sp = new JScrollPane(table);
-        frame.add(sp);
+        ResultSet rs = stmt.executeQuery(sql);
+        
+        while(rs.next()) {
+        	int gid = rs.getInt("gID");
+        	System.out.println("Game ID: " + gid);
+        	String name = rs.getString("name");
+        	System.out.println("Name: " +name);
+        	
+        }
+        rs.close();
+        stmt.close();
+        conn.close();
+        
+        //String column[] = null;
+        //String data[][] = null;
+        //JTable table = new JTable(data, column);
+        //table.setBounds(0,40,300,300);
+        //JScrollPane sp = new JScrollPane(table);
+        //frame.add(sp);
 
         frame.setVisible(true);
 
@@ -61,20 +88,4 @@ public class DatabaseUI
         
     }
     
-    public static void connect() throws ClassNotFoundException {
-    	//Connection conn = null;
-    	
-    	try
-        {
-    		Class.forName("org.sqlite.JDBC");
-    		String url = "jdbc:sqlite:gameStoreData.db";
-    		
-    		conn = DriverManager.getConnection(url);
-    		
-    		System.out.println("Connection success");
-    	}catch(Exception e) {
-    		System.out.println(e.getMessage());
-    	} 
-    	
-    }
 }
