@@ -30,7 +30,8 @@ public class DatabaseUI
 //        addBuyers(100);
 //        addStore(50);
 //        addEmployees(99);
-        addGames(250);
+//        addGames(250);
+//        addManager(20);
 
         // Adding buttons
         JButton newTransButton = new JButton("New");
@@ -482,7 +483,7 @@ public class DatabaseUI
         }
     }
 
-    public void addManager(int amount)
+    public static void addManager(int amount)
     {
         int id = 0;
 
@@ -494,10 +495,14 @@ public class DatabaseUI
             {
                 stmt = conn.createStatement();
 
-                String name = generateRandom.generateRandomName();
+                int sID = (int) (Math.random() * 50);
+                int eID = (int) (Math.random() * 100);
 
-                sql = "INSERT INTO 'Manager' (sID, eID)";
+                sql = "INSERT INTO 'Manager' (sID, eID)" +
+                        "VALUES (" + sID + ", " + eID + ");";
                 stmt.executeUpdate(sql);
+                stmt.close();
+                conn.commit();
             }
         }
         catch(SQLException e)
