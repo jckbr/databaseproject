@@ -2,11 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.sql.*;
-import java.util.HashMap;
-import java.util.Scanner;
 
 public class DatabaseUI
 {
@@ -91,25 +87,5 @@ public class DatabaseUI
         // Button Listeners
 
         newButton.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e){}});
-    }
-
-    boolean generateRandom()
-    {
-        HashMap<Integer, String> dictionary = new HashMap<Integer, String>();
-
-        try
-        {
-            File dict = new File("words_alpha.txt");
-            Scanner readDict = new Scanner(dict);
-
-            while(readDict.hasNextLine())
-            {
-
-            }
-        }
-        catch(FileNotFoundException e)
-        {
-            System.out.println("File not found. Make sure file 'words-alpha.txt' is in src folder.");
-        }
     }
 }
