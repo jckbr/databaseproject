@@ -285,13 +285,13 @@ public class DatabaseUI
 
         //New Transaction Listener
         sql = "SELECT eID FROM 'Employee';";
-        ResultSet Ers = stmt.executeQuery(sql);
+        final ResultSet Ers = stmt.executeQuery(sql);
         sql = "SELECT gID FROM 'Games';";
-		ResultSet Grs = stmt.executeQuery(sql);
+		final ResultSet Grs = stmt.executeQuery(sql);
 		sql = "SELECT bID FROM 'Buyers';";
-		ResultSet Brs = stmt.executeQuery(sql);
+		final ResultSet Brs = stmt.executeQuery(sql);
 		sql = "SELECT transactionNum FROM 'Rent';";
-		ResultSet result = stmt.executeQuery(sql);
+		final ResultSet result = stmt.executeQuery(sql);
 
 
         newTransButton.addActionListener(new ActionListener() {
