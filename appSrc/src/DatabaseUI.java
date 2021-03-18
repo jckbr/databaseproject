@@ -4,13 +4,13 @@ import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.sql.*;
+
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.*;
 import java.lang.Object;
+
 
 public class DatabaseUI
 {
@@ -223,7 +223,8 @@ public class DatabaseUI
         stmt.close();
         conn.close();
     }
-/*
+
+
     boolean generateRandom()
     {
         HashMap<Integer, String> dictionary = new HashMap<Integer, String>();
@@ -243,5 +244,6 @@ public class DatabaseUI
             System.out.println("File not found. Make sure file 'words-alpha.txt' is in src folder.");
         }
     }
-    */
+    
+
 }
