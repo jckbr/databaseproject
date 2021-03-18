@@ -285,12 +285,19 @@ public class DatabaseUI
 
         //New Transaction Listener
         String sql1 = "SELECT eID FROM 'Employee';";
+        stmt = conn.createStatement();
         final ResultSet Ers = stmt.executeQuery(sql1);
+
         String sql2 = "SELECT gID FROM 'Games';";
+        stmt = conn.createStatement();
 		final ResultSet Grs = stmt.executeQuery(sql2);
+
 		String sql3 = "SELECT bID FROM 'Buyers';";
+        stmt = conn.createStatement();
 		final ResultSet Brs = stmt.executeQuery(sql3);
+
 		String sql4 = "SELECT transactionNum FROM 'Rent';";
+        stmt = conn.createStatement();
 		final ResultSet result = stmt.executeQuery(sql4);
 
 
@@ -319,10 +326,6 @@ public class DatabaseUI
         	}
         	
         });
-        
-//        rs.close();
-//        stmt.close();
-//        conn.close();
     }
 
     public static void connectDB()
@@ -343,13 +346,6 @@ public class DatabaseUI
 
     public static void updateTransaction(ResultSet Ers, ResultSet Grs, ResultSet Brs, ResultSet result) {
     	//adds to the transaction list and pushes the change to the database, then re-loads the table
-
-        if(Ers == null || Grs == null || Brs == null || result == null)
-        {
-            System.out.println("1");
-        }
-
-        System.out.println("2");
 
     	ArrayList<Integer> emplID = new ArrayList<Integer>();
     	ArrayList<Integer> gamID = new ArrayList<Integer>();

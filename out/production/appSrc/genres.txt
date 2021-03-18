@@ -1,0 +1,8 @@
+Action
+Shooter
+Strategy
+Side scroller
+Racing
+Flying
+Single player
+Multi player
