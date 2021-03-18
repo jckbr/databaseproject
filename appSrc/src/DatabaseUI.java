@@ -27,7 +27,7 @@ public class DatabaseUI
         Statement stmt = conn.createStatement();
 
         // Add default values
-        addBuyers(1000);
+        addBuyers(100);
         
         // Adding buttons
         JButton newTransButton = new JButton("New");
