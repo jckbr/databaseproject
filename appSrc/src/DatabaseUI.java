@@ -284,14 +284,14 @@ public class DatabaseUI
         // Button Listeners
 
         //New Transaction Listener
-        sql = "SELECT eID FROM 'Employee';";
-        final ResultSet Ers = stmt.executeQuery(sql);
-        sql = "SELECT gID FROM 'Games';";
-		final ResultSet Grs = stmt.executeQuery(sql);
-		sql = "SELECT bID FROM 'Buyers';";
-		final ResultSet Brs = stmt.executeQuery(sql);
-		sql = "SELECT transactionNum FROM 'Rent';";
-		final ResultSet result = stmt.executeQuery(sql);
+        String sql1 = "SELECT eID FROM 'Employee';";
+        final ResultSet Ers = stmt.executeQuery(sql1);
+        String sql2 = "SELECT gID FROM 'Games';";
+		final ResultSet Grs = stmt.executeQuery(sql2);
+		String sql3 = "SELECT bID FROM 'Buyers';";
+		final ResultSet Brs = stmt.executeQuery(sql3);
+		String sql4 = "SELECT transactionNum FROM 'Rent';";
+		final ResultSet result = stmt.executeQuery(sql4);
 
 
         newTransButton.addActionListener(new ActionListener() {
@@ -309,6 +309,17 @@ public class DatabaseUI
         }
         );
 
+        updateButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		addBuyers(1);
+                addStore(1);
+                addEmployees(1);
+                addGames(1);
+                addManager(1);
+        	}
+        	
+        });
+        
 //        rs.close();
 //        stmt.close();
 //        conn.close();
@@ -374,10 +385,13 @@ public class DatabaseUI
     	JPanel p2 = new JPanel(new FlowLayout());
     	JPanel p3 = new JPanel(new FlowLayout());
     	JComboBox em = new JComboBox(EidNums);
+    	em.setBounds(0,50,50,50);
     	JLabel emLab = new JLabel("Select Employee ID");
     	JComboBox ga = new JComboBox(gIdNums);
+    	ga.setBounds(0,50,50,50);
     	JLabel gaLab = new JLabel("Select Game ID");
     	JComboBox bu = new JComboBox(bIdNums);
+    	bu.setBounds(0,50,50,50);
     	JLabel buLab = new JLabel("Select Buyer ID");
 
     	JButton finishButton = new JButton("Save");
