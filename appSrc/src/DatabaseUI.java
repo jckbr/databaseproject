@@ -17,12 +17,12 @@ public class DatabaseUI
 	public static Connection conn;
 	public static Statement statement = null;
 	public static Statement stmt = null;
-	
 	public static JFrame frame = new JFrame("Game Rental Database");
 	
     public static void main(String args[]) throws ClassNotFoundException, SQLException
     {
         // Creating the Frame
+    	//JFrame frame = new JFrame("Game Rental Database");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 400);
 
@@ -43,8 +43,8 @@ public class DatabaseUI
         Statement stmt = conn.createStatement();
         
         // Adding buttons
-        JButton newButton = new JButton("New");
-        newButton.setBounds(0,50,50,50);
+        JButton newTransButton = new JButton("New Transaction");
+        newTransButton.setBounds(0,50,50,50);
         JButton delButton = new JButton("Delete");
         delButton.setBounds(0,50,100,50);
         JButton updateButton = new JButton("Update");
@@ -53,7 +53,7 @@ public class DatabaseUI
         nextButton.setBounds(0,50,100,50);
         JButton prevButton = new JButton("Previous");
         prevButton.setBounds(0,50,100,50);
-        frame.add(newButton);
+        frame.add(newTransButton);
         frame.add(delButton);
         frame.add(updateButton);
         frame.add(nextButton);
@@ -286,12 +286,91 @@ public class DatabaseUI
         
         // Button Listeners
 
-        newButton.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e){}});
+        //New Transaction Listener
+        sql = "SELECT eID FROM 'Employee';";
+        ResultSet Ers = stmt.executeQuery(sql);
+        sql = "SELECT gID FROM 'Games';";
+		ResultSet Grs = stmt.executeQuery(sql);
+		sql = "SELECT bID FROM 'Buyers';";
+		ResultSet Brs = stmt.executeQuery(sql);
+		
+        newTransButton.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e){
+        		frame.remove(sp);
+        		frame.remove(sp1);
+        		frame.remove(sp2);
+        		frame.remove(sp3);
+        		frame.remove(sp4);
+        		frame.remove(sp5);
+        		updateTransaction(Ers, Grs, Brs);
+        	}
+        }
+        );
         
         rs.close();
         stmt.close();
         conn.close();
     }
     
+    public static void updateTransaction(ResultSet Ers, ResultSet Grs, ResultSet Brs) {
+    	//adds to the transaction list and pushes the change to the database, then re-loads the table
+    	ArrayList<Integer> emplID = new ArrayList<Integer>();
+    	ArrayList<Integer> gamID = new ArrayList<Integer>();
+    	ArrayList<Integer> buyID = new ArrayList<Integer>();
+    	try {
+			
+			while(Ers.next()) {
+				emplID.add(Ers.getInt("eID"));
+			}
+			
+			while(Grs.next()) {
+				gamID.add(Grs.getInt("gID"));
+			}
+			
+			while(Brs.next()) {
+				buyID.add(Brs.getInt("bID"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	Integer[] EidNums = emplID.toArray(new Integer[0]);
+    	Integer[] gIdNums = gamID.toArray(new Integer[0]);
+    	Integer[] bIdNums = buyID.toArray(new Integer[0]);
+    	
+    	JPanel panel1 = new JPanel(new FlowLayout());
+    	JPanel p1 = new JPanel(new FlowLayout());
+    	JPanel p2 = new JPanel(new FlowLayout());
+    	JPanel p3 = new JPanel(new FlowLayout());
+    	JComboBox em = new JComboBox(EidNums);
+    	JLabel emLab = new JLabel("Select Employee ID");
+    	JComboBox ga = new JComboBox(gIdNums);
+    	JLabel gaLab = new JLabel("Select Game ID");
+    	JComboBox bu = new JComboBox(bIdNums);
+    	JLabel buLab = new JLabel("Select Buyer ID");
+    	
+    	JButton finishButton = new JButton("Save");
+    	finishButton.addActionListener(new ActionListener() {
+    		public void actionPerformed(ActionEvent e) {
+    			//send update and remove the panel1 from frame. then return
+    		}
+    	});
+    	
+    	p1.add(emLab);
+    	p1.add(em);
+    	p2.add(gaLab);
+    	p2.add(ga);
+    	p3.add(buLab);
+    	p3.add(bu);
+    	
+    	panel1.add(p1);
+    	panel1.add(p2);
+    	panel1.add(p3);
+    	panel1.add(finishButton);
+    	frame.add(panel1);
+    	frame.setVisible(true);
+    	
+    	
+    }
 
 }
