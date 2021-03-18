@@ -18,10 +18,11 @@ public class DatabaseUI
 	public static Statement statement = null;
 	public static Statement stmt = null;
 	
+	public static JFrame frame = new JFrame("Game Rental Database");
+	
     public static void main(String args[]) throws ClassNotFoundException, SQLException
     {
         // Creating the Frame
-        JFrame frame = new JFrame("Game Rental Database");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 400);
 
@@ -57,6 +58,7 @@ public class DatabaseUI
         frame.add(updateButton);
         frame.add(nextButton);
         frame.add(prevButton);
+        
 
         // Setting flow style
         frame.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -89,6 +91,9 @@ public class DatabaseUI
         	
         }
         
+        gameTable.setBounds(0,40,300,300);
+        JScrollPane sp = new JScrollPane(gameTable);
+        
         //Init Buyers Table
         sql = "SELECT * FROM 'Buyers'";
         
@@ -112,6 +117,9 @@ public class DatabaseUI
         	buyerTableModel.addRow(buyerRow);
         	
         }
+        
+        buyerTable.setBounds(0,40,300,300);
+        JScrollPane sp4 = new JScrollPane(buyerTable);
         
         //Init Employee Table
         sql = "SELECT * FROM 'Employee';";
@@ -138,6 +146,9 @@ public class DatabaseUI
         	
         }
         
+        employeeTable.setBounds(0,40,300,300);
+        JScrollPane sp1 = new JScrollPane(employeeTable);
+        
         //Init Manager Table
         sql = "SELECT * FROM 'Manager';";
         
@@ -159,6 +170,9 @@ public class DatabaseUI
         	
         	managerTableModel.addRow(managerRow);
         }
+        
+        managerTable.setBounds(0,40,300,300);
+        JScrollPane sp2 = new JScrollPane(managerTable);
         
         //Init Rent Table
         sql = "SELECT * FROM 'Rent';";
@@ -184,6 +198,9 @@ public class DatabaseUI
         	rentTableModel.addRow(rentRow);
         }
         
+        rentTable.setBounds(0,40,300,300);
+        JScrollPane sp5 = new JScrollPane(rentTable);
+        
         //Init Store Table
         sql = "SELECT * FROM 'Store';";
         
@@ -208,13 +225,65 @@ public class DatabaseUI
         	storeTableModel.addRow(storeRow);
         }
         
-        //display table on gui
-        gameTable.setBounds(0,40,300,300);
-        JScrollPane sp = new JScrollPane(gameTable);
-        frame.add(sp);
+        storeTable.setBounds(0,40,300,300);
+        JScrollPane sp3 = new JScrollPane(storeTable);
+        
+      //adding a dropdown for the table menus
+        String[] tableOptions = {"Games", "Employees", "Managers", "Stores", "Buyers", "Rents"};
+        JComboBox tableChoice = new JComboBox(tableOptions);
+        
+        ActionListener cbAction = new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		String choice = (String) tableChoice.getSelectedItem();
+        		
+        		frame.remove(sp);
+        		frame.remove(sp1);
+        		frame.remove(sp2);
+        		frame.remove(sp3);
+        		frame.remove(sp4);
+        		frame.remove(sp5);
+        		
+        		switch(choice) {
+        			case "Games":
+        		        frame.add(sp);
+        		        frame.validate();
 
+        		        frame.setVisible(true);
+        		        break;
+        			case "Employees":
+        		        frame.add(sp1);
+
+        		        frame.setVisible(true);
+        		        break;
+        			case "Managers":
+        		        frame.add(sp2);
+
+        		        frame.setVisible(true);
+        		        break;
+        			case "Stores":
+        		        frame.add(sp3);
+
+        		        frame.setVisible(true);
+        		        break;
+        			case "Buyers":
+        		        frame.add(sp4);
+
+        		        frame.setVisible(true);
+        		        break;
+        			case "Rents":
+        		        frame.add(sp5);
+
+        		        frame.setVisible(true);
+        		        break;
+        		}
+        	}
+        };
+        
+        tableChoice.addActionListener(cbAction);
+        frame.add(tableChoice);
+        
         frame.setVisible(true);
-
+        
         // Button Listeners
 
         newButton.addActionListener(new ActionListener() {public void actionPerformed(ActionEvent e){}});
