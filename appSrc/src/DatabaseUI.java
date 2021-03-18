@@ -56,190 +56,190 @@ public class DatabaseUI
         frame.add(updateButton);
         frame.add(nextButton);
         frame.add(prevButton);
-        
+
 
         // Setting flow style
         frame.setLayout(new FlowLayout(FlowLayout.LEFT));
 
-        
+
         //Init Game Table -----------------------------------------------------------------------
         sql = "SELECT * FROM 'Games';";
-        
+
         ResultSet rs = stmt.executeQuery(sql);
-        
+
         int gColAm = rs.getMetaData().getColumnCount();
-        
+
         String[] gameColumn = {"ID Number", "Name", "Genre", "Release Date", "Price", "Store ID"};
-       
+
         DefaultTableModel gameTableModel = new DefaultTableModel(gameColumn, 0);
-        
+
         JTable gameTable= new JTable(gameTableModel);
-        
+
         while(rs.next()) {
         	Object[] gameRow = new Object[gColAm];
-        	
+
         	gameRow[0] = rs.getInt("gID");
         	gameRow[1] = rs.getString("name");
         	gameRow[2] = rs.getString("genre");
         	gameRow[3] = rs.getDate("releaseDate");
         	gameRow[4] = rs.getDouble("price");
         	gameRow[5] = rs.getInt("sID");
-        	
+
         	gameTableModel.addRow(gameRow);
         }
-        
+
         gameTable.setBounds(0,40,300,300);
         JScrollPane sp = new JScrollPane(gameTable);
-        
+
         //Init Buyers Table -----------------------------------------------------------------------
         sql = "SELECT * FROM 'Buyers'";
-        
+
         rs = stmt.executeQuery(sql);
-        
+
         int bColAm = rs.getMetaData().getColumnCount();
-        
+
         String[] buyerColumn = {"ID Number", "Name", "Interest"};
-        
+
         DefaultTableModel buyerTableModel = new DefaultTableModel(buyerColumn, 0);
-        
+
         JTable buyerTable= new JTable(buyerTableModel);
-        
+
         while(rs.next()) {
         	Object[] buyerRow = new Object[bColAm];
-        	
+
         	buyerRow[0] = rs.getInt("bID");
         	buyerRow[1] = rs.getString("name");
         	buyerRow[2] = rs.getString("interest");
-        	
+
         	buyerTableModel.addRow(buyerRow);
-        	
+
         }
-        
+
         buyerTable.setBounds(0,40,300,300);
         JScrollPane sp4 = new JScrollPane(buyerTable);
-        
+
         //Init Employee Table -----------------------------------------------------------------------
         sql = "SELECT * FROM 'Employee';";
-        
+
         rs = stmt.executeQuery(sql);
-        
+
         int eColAm = rs.getMetaData().getColumnCount();
-        
+
         String[] employeeColumn = {"ID Number", "Name", "Pay Rate", "Hire Date"};
-       
+
         DefaultTableModel employeeTableModel = new DefaultTableModel(employeeColumn, 0);
-        
+
         JTable employeeTable= new JTable(employeeTableModel);
-        
+
         while(rs.next()) {
         	Object[] employeeRow = new Object[eColAm];
-        	
+
         	employeeRow[0] = rs.getInt("eID");
         	employeeRow[1] = rs.getString("name");
         	employeeRow[2] = rs.getInt("payRate");
         	employeeRow[3] = rs.getDate("hireDate");
-        	
+
         	employeeTableModel.addRow(employeeRow);
-        	
+
         }
-        
+
         employeeTable.setBounds(0,40,300,300);
         JScrollPane sp1 = new JScrollPane(employeeTable);
-        
+
         //Init Manager Table -----------------------------------------------------------------------
         sql = "SELECT * FROM 'Manager';";
-        
+
         rs = stmt.executeQuery(sql);
-        
+
         int mColAm = rs.getMetaData().getColumnCount();
-        
+
         String[] managerColumn = {"Employee ID Number", "Store ID Number"};
-        
+
         DefaultTableModel managerTableModel = new DefaultTableModel(managerColumn, 0);
-        
+
         JTable managerTable = new JTable(managerTableModel);
-        
+
         while(rs.next()) {
         	Object[] managerRow = new Object[mColAm];
-        	
+
         	managerRow[0] = rs.getInt("eID");
         	managerRow[1] = rs.getInt("sID");
-        	
+
         	managerTableModel.addRow(managerRow);
         }
-        
+
         managerTable.setBounds(0,40,300,300);
         JScrollPane sp2 = new JScrollPane(managerTable);
-        
+
         //Init Rent Table -----------------------------------------------------------------------
         sql = "SELECT * FROM 'Rent';";
-        
+
         rs = stmt.executeQuery(sql);
-        
+
         int rColAm = rs.getMetaData().getColumnCount();
-        
+
         String[] rentColumn = {"Employee ID Number", "Transaction Number", "Buyer ID Number", "Game ID Number"};
-        
+
         DefaultTableModel rentTableModel = new DefaultTableModel(rentColumn, 0);
-        
+
         JTable rentTable = new JTable(rentTableModel);
-        
+
         while(rs.next()) {
         	Object[] rentRow = new Object[rColAm];
-        	
+
         	rentRow[0] = rs.getInt("eID");
         	rentRow[1] = rs.getInt("transactionNum");
         	rentRow[2] = rs.getInt("bID");
         	rentRow[3] = rs.getInt("gID");
-        	
+
         	rentTableModel.addRow(rentRow);
         }
-        
+
         rentTable.setBounds(0,40,300,300);
         JScrollPane sp5 = new JScrollPane(rentTable);
-        
+
         //Init Store Table -----------------------------------------------------------------------
         sql = "SELECT * FROM 'Store';";
-        
+
         rs = stmt.executeQuery(sql);
-        
+
         int sColAm = rs.getMetaData().getColumnCount();
-        
+
         String[] storeColumn = {"Store ID Number", "Region", "Employee Count", "Game Count"};
-        
+
         DefaultTableModel storeTableModel = new DefaultTableModel(storeColumn, 0);
-        
+
         JTable storeTable = new JTable(storeTableModel);
-        
+
         while(rs.next()) {
         	Object[] storeRow = new Object[sColAm];
-        	
+
         	storeRow[0] = rs.getInt("sID");
         	storeRow[1] = rs.getString("region");
         	storeRow[2] = rs.getInt("employeeCount");
         	storeRow[3] = rs.getInt("gameCount");
-        	
+
         	storeTableModel.addRow(storeRow);
         }
-        
+
         storeTable.setBounds(0,40,300,300);
         JScrollPane sp3 = new JScrollPane(storeTable);
-        
+
       //adding a dropdown for the table menus
         String[] tableOptions = {"Games", "Employee", "Managers", "Stores", "Buyers", "Rents"};
         JComboBox tableChoice = new JComboBox(tableOptions);
-        
+
         ActionListener cbAction = new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		String choice = (String) tableChoice.getSelectedItem();
-        		
+
         		frame.remove(sp);
         		frame.remove(sp1);
         		frame.remove(sp2);
         		frame.remove(sp3);
         		frame.remove(sp4);
         		frame.remove(sp5);
-        		
+
         		switch(choice) {
         			case "Games":
         		        frame.add(sp);
@@ -275,12 +275,12 @@ public class DatabaseUI
         		}
         	}
         };
-        
+
         tableChoice.addActionListener(cbAction);
         frame.add(tableChoice);
-        
+
         frame.setVisible(true);
-        
+
         // Button Listeners
 
         //New Transaction Listener
@@ -292,9 +292,9 @@ public class DatabaseUI
 		ResultSet Brs = stmt.executeQuery(sql);
 		sql = "SELECT transactionNum FROM 'Rent';";
 		ResultSet result = stmt.executeQuery(sql);
-		
-		
-        newTransButton.addActionListener(new ActionListener() {
+
+
+        updateButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e){
         		frame.remove(sp);
         		frame.remove(sp1);
@@ -302,16 +302,16 @@ public class DatabaseUI
         		frame.remove(sp3);
         		frame.remove(sp4);
         		frame.remove(sp5);
-        		
-        		
+
+
         		updateTransaction(Ers, Grs, Brs, result);
         	}
         }
         );
-        
-        rs.close();
-        stmt.close();
-        conn.close();
+
+//        rs.close();
+//        stmt.close();
+//        conn.close();
     }
 
     public static void connectDB()
@@ -329,7 +329,7 @@ public class DatabaseUI
             System.out.println("Connection failed");
         }
     }
-    
+
     public static void updateTransaction(ResultSet Ers, ResultSet Grs, ResultSet Brs, ResultSet result) {
     	//adds to the transaction list and pushes the change to the database, then re-loads the table
     	ArrayList<Integer> emplID = new ArrayList<Integer>();
@@ -340,19 +340,19 @@ public class DatabaseUI
     		while(result.next()) {
     			tN = (Integer) result.getInt("transactionNum");
     		}
-    		
+
 			while(Ers.next()) {
 				emplID.add(Ers.getInt("eID"));
 			}
-			
+
 			while(Grs.next()) {
 				gamID.add(Grs.getInt("gID"));
 			}
-			
+
 			while(Brs.next()) {
 				buyID.add(Brs.getInt("bID"));
 			}
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -360,7 +360,7 @@ public class DatabaseUI
     	Integer[] gIdNums = gamID.toArray(new Integer[0]);
     	Integer[] bIdNums = buyID.toArray(new Integer[0]);
     	final int transNum = tN;
-    	
+
     	JPanel panel1 = new JPanel(new FlowLayout());
     	JPanel p1 = new JPanel(new FlowLayout());
     	JPanel p2 = new JPanel(new FlowLayout());
@@ -371,12 +371,12 @@ public class DatabaseUI
     	JLabel gaLab = new JLabel("Select Game ID");
     	JComboBox bu = new JComboBox(bIdNums);
     	JLabel buLab = new JLabel("Select Buyer ID");
-    	
+
     	JButton finishButton = new JButton("Save");
     	finishButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
     			//send update and remove the panel1 from frame. then return
-    			sql = "INSERT INTO Rent(eID, transactionNum, bID, gID) VALUES (" +em.getSelectedItem() +"," 
+    			sql = "INSERT INTO Rent(eID, transactionNum, bID, gID) VALUES (" +em.getSelectedItem() +","
     								+(transNum+1) +"," +bu.getSelectedItem() +"," +ga.getSelectedItem() +");";
     			try {
 					stmt.executeUpdate(sql);
@@ -387,14 +387,14 @@ public class DatabaseUI
     			return;
     		}
     	});
-    	
+
     	p1.add(emLab);
     	p1.add(em);
     	p2.add(gaLab);
     	p2.add(ga);
     	p3.add(buLab);
     	p3.add(bu);
-    	
+
     	panel1.add(p1);
     	panel1.add(p2);
     	panel1.add(p3);
