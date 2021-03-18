@@ -27,8 +27,9 @@ public class DatabaseUI
         Statement stmt = conn.createStatement();
 
         // Add default values
-        addBuyers(100);
-        
+//        addBuyers(100);
+//        addStore(50);
+
         // Adding buttons
         JButton newTransButton = new JButton("New");
         newTransButton.setBounds(0,50,50,50);
@@ -517,10 +518,8 @@ public class DatabaseUI
         }
     }
 
-    public void addStore(int amount)
+    public static void addStore(int amount)
     {
-        int id = 0;
-
         try
         {
             conn.setAutoCommit(false);
@@ -529,10 +528,16 @@ public class DatabaseUI
             {
                 stmt = conn.createStatement();
 
-                String name = generateRandom.generateRandomName();
+                int sID = i;
+                String region = generateRandom.generateRandomRegion();
+                int employeeCount = (int) (Math.random() * 5) + 1;
+                int gameCount = (int) (Math.random() * 250) + 1;
 
-                sql = "INSERT INTO 'Store' (sID, region, employeeCount, gameCount)";
+                sql = "INSERT INTO 'Store' (sID, region, employeeCount, gameCount) " +
+                        "VALUES (" + sID + ", '" + region + "', " + employeeCount + ", " + gameCount + ");";
                 stmt.executeUpdate(sql);
+                stmt.close();
+                conn.commit();
             }
         }
         catch(SQLException e)
