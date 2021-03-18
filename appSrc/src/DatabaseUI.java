@@ -132,7 +132,7 @@ public class DatabaseUI
         	employeeRow[2] = rs.getInt("payRate");
         	employeeRow[3] = rs.getDate("hireDate");
         	
-        	gameTableModel.addRow(employeeRow);
+        	employeeTableModel.addRow(employeeRow);
         	
         }
         
@@ -219,7 +219,7 @@ public class DatabaseUI
         JScrollPane sp3 = new JScrollPane(storeTable);
         
       //adding a dropdown for the table menus
-        String[] tableOptions = {"Games", "Employees", "Managers", "Stores", "Buyers", "Rents"};
+        String[] tableOptions = {"Games", "Employee", "Managers", "Stores", "Buyers", "Rents"};
         JComboBox tableChoice = new JComboBox(tableOptions);
         
         ActionListener cbAction = new ActionListener() {
@@ -240,7 +240,7 @@ public class DatabaseUI
 
         		        frame.setVisible(true);
         		        break;
-        			case "Employees":
+        			case "Employee":
         		        frame.add(sp1);
 
         		        frame.setVisible(true);
@@ -283,6 +283,9 @@ public class DatabaseUI
 		ResultSet Grs = stmt.executeQuery(sql);
 		sql = "SELECT bID FROM 'Buyers';";
 		ResultSet Brs = stmt.executeQuery(sql);
+		sql = "SELECT transactionNum FROM 'Rent';";
+		ResultSet result = stmt.executeQuery(sql);
+		
 		
         newTransButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e){
@@ -292,7 +295,9 @@ public class DatabaseUI
         		frame.remove(sp3);
         		frame.remove(sp4);
         		frame.remove(sp5);
-        		updateTransaction(Ers, Grs, Brs);
+        		
+        		
+        		updateTransaction(Ers, Grs, Brs, result);
         	}
         }
         );
@@ -320,13 +325,17 @@ public class DatabaseUI
         }
     }
     
-    public static void updateTransaction(ResultSet Ers, ResultSet Grs, ResultSet Brs) {
+    public static void updateTransaction(ResultSet Ers, ResultSet Grs, ResultSet Brs, ResultSet result) {
     	//adds to the transaction list and pushes the change to the database, then re-loads the table
     	ArrayList<Integer> emplID = new ArrayList<Integer>();
     	ArrayList<Integer> gamID = new ArrayList<Integer>();
     	ArrayList<Integer> buyID = new ArrayList<Integer>();
+    	int tN = 0;
     	try {
-			
+    		while(result.next()) {
+    			tN = (Integer) result.getInt("transactionNum");
+    		}
+    		
 			while(Ers.next()) {
 				emplID.add(Ers.getInt("eID"));
 			}
@@ -345,6 +354,7 @@ public class DatabaseUI
     	Integer[] EidNums = emplID.toArray(new Integer[0]);
     	Integer[] gIdNums = gamID.toArray(new Integer[0]);
     	Integer[] bIdNums = buyID.toArray(new Integer[0]);
+    	final int transNum = tN;
     	
     	JPanel panel1 = new JPanel(new FlowLayout());
     	JPanel p1 = new JPanel(new FlowLayout());
@@ -361,6 +371,15 @@ public class DatabaseUI
     	finishButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
     			//send update and remove the panel1 from frame. then return
+    			sql = "INSERT INTO Rent(eID, transactionNum, bID, gID) VALUES (" +em.getSelectedItem() +"," 
+    								+(transNum+1) +"," +bu.getSelectedItem() +"," +ga.getSelectedItem() +");";
+    			try {
+					stmt.executeUpdate(sql);
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+    			frame.remove(panel1);
+    			return;
     		}
     	});
     	
