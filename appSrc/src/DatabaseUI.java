@@ -14,11 +14,14 @@ import java.lang.Object;
 
 public class DatabaseUI
 {
+    GenerateRandom generateRandom = new GenerateRandom();
+    GenerateRandom randomInstance = GenerateRandom.instance;
+
 	public static Connection conn;
-	public static Statement statement = null;
 	public static Statement stmt = null;
 	public static JFrame frame = new JFrame("Game Rental Database");
-	
+    private static String sql;
+
     public static void main(String args[]) throws ClassNotFoundException, SQLException
     {
         // Creating the Frame
@@ -26,24 +29,12 @@ public class DatabaseUI
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(500, 400);
 
-        //connect the database
-        try
-        {
-    		Class.forName("org.sqlite.JDBC");
-    		String url = "jdbc:sqlite:./appSrc/src/gameStoreData.db";
+        connectDB();
 
-    		conn = DriverManager.getConnection(url);
-
-    		System.out.println("Connection success");
-    	}catch(Exception e) {
-    		System.out.println(e.getMessage());
-    		System.out.println("Connection failed");
-    		System.exit(0);
-    	} 
         Statement stmt = conn.createStatement();
         
         // Adding buttons
-        JButton newTransButton = new JButton("New Transaction");
+        JButton newTransButton = new JButton("New");
         newTransButton.setBounds(0,50,50,50);
         JButton delButton = new JButton("Delete");
         delButton.setBounds(0,50,100,50);
@@ -64,8 +55,8 @@ public class DatabaseUI
         frame.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         
-        //Init Game Table
-        String sql = "SELECT * FROM 'Games';";
+        //Init Game Table -----------------------------------------------------------------------
+        sql = "SELECT * FROM 'Games';";
         
         ResultSet rs = stmt.executeQuery(sql);
         
@@ -88,13 +79,12 @@ public class DatabaseUI
         	gameRow[5] = rs.getInt("sID");
         	
         	gameTableModel.addRow(gameRow);
-        	
         }
         
         gameTable.setBounds(0,40,300,300);
         JScrollPane sp = new JScrollPane(gameTable);
         
-        //Init Buyers Table
+        //Init Buyers Table -----------------------------------------------------------------------
         sql = "SELECT * FROM 'Buyers'";
         
         rs = stmt.executeQuery(sql);
@@ -121,7 +111,7 @@ public class DatabaseUI
         buyerTable.setBounds(0,40,300,300);
         JScrollPane sp4 = new JScrollPane(buyerTable);
         
-        //Init Employee Table
+        //Init Employee Table -----------------------------------------------------------------------
         sql = "SELECT * FROM 'Employee';";
         
         rs = stmt.executeQuery(sql);
@@ -149,7 +139,7 @@ public class DatabaseUI
         employeeTable.setBounds(0,40,300,300);
         JScrollPane sp1 = new JScrollPane(employeeTable);
         
-        //Init Manager Table
+        //Init Manager Table -----------------------------------------------------------------------
         sql = "SELECT * FROM 'Manager';";
         
         rs = stmt.executeQuery(sql);
@@ -174,7 +164,7 @@ public class DatabaseUI
         managerTable.setBounds(0,40,300,300);
         JScrollPane sp2 = new JScrollPane(managerTable);
         
-        //Init Rent Table
+        //Init Rent Table -----------------------------------------------------------------------
         sql = "SELECT * FROM 'Rent';";
         
         rs = stmt.executeQuery(sql);
@@ -201,7 +191,7 @@ public class DatabaseUI
         rentTable.setBounds(0,40,300,300);
         JScrollPane sp5 = new JScrollPane(rentTable);
         
-        //Init Store Table
+        //Init Store Table -----------------------------------------------------------------------
         sql = "SELECT * FROM 'Store';";
         
         rs = stmt.executeQuery(sql);
@@ -311,6 +301,24 @@ public class DatabaseUI
         stmt.close();
         conn.close();
     }
+
+    public static boolean connectDB()
+    {
+        try
+        {
+            Class.forName("org.sqlite.JDBC");
+            String url = "jdbc:sqlite:./appSrc/src/gameStoreData.db";
+
+            conn = DriverManager.getConnection(url);
+
+            System.out.println("Connection success");
+            return true;
+        }catch(Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("Connection failed");
+            return false;
+        }
+    }
     
     public static void updateTransaction(ResultSet Ers, ResultSet Grs, ResultSet Brs) {
     	//adds to the transaction list and pushes the change to the database, then re-loads the table
@@ -369,8 +377,149 @@ public class DatabaseUI
     	panel1.add(finishButton);
     	frame.add(panel1);
     	frame.setVisible(true);
-    	
-    	
     }
 
+    public void addBuyers(int amount)
+    {
+        int id = 0;
+
+        try
+        {
+            conn.setAutoCommit(false);
+
+            for (int i = 0; i < amount; i++)
+            {
+                stmt = conn.createStatement();
+
+                String name = randomInstance.generateRandomName();
+
+                sql = "INSERT INTO 'Buyers' (bID, name, interest)";
+                stmt.executeUpdate(sql);
+            }
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void addEmployees(int amount)
+    {
+        int id = 0;
+
+        try
+        {
+            conn.setAutoCommit(false);
+
+            for (int i = 0; i < amount; i++)
+            {
+                stmt = conn.createStatement();
+
+                String name = randomInstance.generateRandomName();
+
+                sql = "INSERT INTO 'Employee' (eID, name, payRate, hireDate)";
+                stmt.executeUpdate(sql);
+            }
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void addGames(int amount)
+    {
+        int id = 0;
+
+        try
+        {
+            conn.setAutoCommit(false);
+
+            for (int i = 0; i < amount; i++)
+            {
+                stmt = conn.createStatement();
+
+                String name = randomInstance.generateRandomGame();
+
+                sql = "INSERT INTO 'Games' (gID, name, genre, releaseDate, price, sID)";
+                stmt.executeUpdate(sql);
+            }
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void addManager(int amount)
+    {
+        int id = 0;
+
+        try
+        {
+            conn.setAutoCommit(false);
+
+            for (int i = 0; i < amount; i++)
+            {
+                stmt = conn.createStatement();
+
+                String name = randomInstance.generateRandomName();
+
+                sql = "INSERT INTO 'Manager' (sID, eID)";
+                stmt.executeUpdate(sql);
+            }
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void addRent(int amount)
+    {
+        int id = 0;
+
+        try
+        {
+            conn.setAutoCommit(false);
+
+            for (int i = 0; i < amount; i++)
+            {
+                stmt = conn.createStatement();
+
+                String name = randomInstance.generateRandomName();
+
+                sql = "INSERT INTO 'Rent' (eID, transactionNum, bID, gID)";
+                stmt.executeUpdate(sql);
+            }
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void addStore(int amount)
+    {
+        int id = 0;
+
+        try
+        {
+            conn.setAutoCommit(false);
+
+            for (int i = 0; i < amount; i++)
+            {
+                stmt = conn.createStatement();
+
+                String name = randomInstance.generateRandomName();
+
+                sql = "INSERT INTO 'Store' (sID, region, employeeCount, gameCount)";
+                stmt.executeUpdate(sql);
+            }
+        }
+        catch(SQLException e)
+        {
+            System.out.println(e.getMessage());
+        }
+    }
 }
