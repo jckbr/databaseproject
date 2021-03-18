@@ -1,28 +1,21 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
-
-import java.util.HashMap;
-import java.util.Scanner;
-import java.util.*;
-import java.lang.Object;
+import java.util.ArrayList;
 
 
 public class DatabaseUI
 {
-    GenerateRandom generateRandom = new GenerateRandom();
-    GenerateRandom randomInstance = GenerateRandom.instance;
-
 	public static Connection conn;
 	public static Statement stmt = null;
 	public static JFrame frame = new JFrame("Game Rental Database");
     private static String sql;
+    private static GenerateRandom generateRandom = new GenerateRandom();
 
-    public static void main(String args[]) throws ClassNotFoundException, SQLException
+    public static void main(String args[]) throws SQLException
     {
         // Creating the Frame
     	//JFrame frame = new JFrame("Game Rental Database");
@@ -32,6 +25,9 @@ public class DatabaseUI
         connectDB();
 
         Statement stmt = conn.createStatement();
+
+        // Add default values
+        addBuyers(1000);
         
         // Adding buttons
         JButton newTransButton = new JButton("New");
@@ -398,10 +394,8 @@ public class DatabaseUI
     	frame.setVisible(true);
     }
 
-    public void addBuyers(int amount)
+    public static void addBuyers(int amount)
     {
-        int id = 0;
-
         try
         {
             conn.setAutoCommit(false);
@@ -410,10 +404,15 @@ public class DatabaseUI
             {
                 stmt = conn.createStatement();
 
-                String name = randomInstance.generateRandomName();
+                int bID = i;
+                String name = generateRandom.generateRandomName();
+                String interest = generateRandom.generateRandomGenre();
 
-                sql = "INSERT INTO 'Buyers' (bID, name, interest)";
+                sql = "INSERT INTO 'Buyers' (bID, name, interest) " +
+                        "VALUES (" + bID + ", '" + name + "', '" + interest + "');";
                 stmt.executeUpdate(sql);
+                stmt.close();
+                conn.commit();
             }
         }
         catch(SQLException e)
@@ -434,7 +433,7 @@ public class DatabaseUI
             {
                 stmt = conn.createStatement();
 
-                String name = randomInstance.generateRandomName();
+                String name = generateRandom.generateRandomName();
 
                 sql = "INSERT INTO 'Employee' (eID, name, payRate, hireDate)";
                 stmt.executeUpdate(sql);
@@ -458,7 +457,7 @@ public class DatabaseUI
             {
                 stmt = conn.createStatement();
 
-                String name = randomInstance.generateRandomGame();
+                String name = generateRandom.generateRandomGame();
 
                 sql = "INSERT INTO 'Games' (gID, name, genre, releaseDate, price, sID)";
                 stmt.executeUpdate(sql);
@@ -482,7 +481,7 @@ public class DatabaseUI
             {
                 stmt = conn.createStatement();
 
-                String name = randomInstance.generateRandomName();
+                String name = generateRandom.generateRandomName();
 
                 sql = "INSERT INTO 'Manager' (sID, eID)";
                 stmt.executeUpdate(sql);
@@ -506,7 +505,7 @@ public class DatabaseUI
             {
                 stmt = conn.createStatement();
 
-                String name = randomInstance.generateRandomName();
+                String name = generateRandom.generateRandomName();
 
                 sql = "INSERT INTO 'Rent' (eID, transactionNum, bID, gID)";
                 stmt.executeUpdate(sql);
@@ -530,7 +529,7 @@ public class DatabaseUI
             {
                 stmt = conn.createStatement();
 
-                String name = randomInstance.generateRandomName();
+                String name = generateRandom.generateRandomName();
 
                 sql = "INSERT INTO 'Store' (sID, region, employeeCount, gameCount)";
                 stmt.executeUpdate(sql);

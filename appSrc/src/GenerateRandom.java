@@ -5,13 +5,6 @@ import java.util.Scanner;
 
 public class GenerateRandom
 {
-    public static GenerateRandom instance;
-
-    public GenerateRandom()
-    {
-        instance = this;
-    }
-
     public String generateRandomName()
     {
         HashMap<Integer, String> names = new HashMap<Integer, String>();
@@ -19,7 +12,7 @@ public class GenerateRandom
 
         try
         {
-            File dict = new File("names.txt");
+            File dict = new File("\\names.txt");
             Scanner readNames = new Scanner(dict);
 
             while(readNames.hasNextLine())
