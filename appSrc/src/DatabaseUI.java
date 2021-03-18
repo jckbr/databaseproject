@@ -223,27 +223,6 @@ public class DatabaseUI
         stmt.close();
         conn.close();
     }
-
-
-    boolean generateRandom()
-    {
-        HashMap<Integer, String> dictionary = new HashMap<Integer, String>();
-
-        try
-        {
-            File dict = new File("words_alpha.txt");
-            Scanner readDict = new Scanner(dict);
-
-            while(readDict.hasNextLine())
-            {
-
-            }
-        }
-        catch(FileNotFoundException e)
-        {
-            System.out.println("File not found. Make sure file 'words-alpha.txt' is in src folder.");
-        }
-    }
     
 
 }
