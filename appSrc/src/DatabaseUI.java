@@ -29,6 +29,7 @@ public class DatabaseUI
         // Add default values
 //        addBuyers(100);
 //        addStore(50);
+//        addEmployees(99);
 
         // Adding buttons
         JButton newTransButton = new JButton("New");
@@ -422,10 +423,8 @@ public class DatabaseUI
         }
     }
 
-    public void addEmployees(int amount)
+    public static void addEmployees(int amount)
     {
-        int id = 0;
-
         try
         {
             conn.setAutoCommit(false);
@@ -434,10 +433,16 @@ public class DatabaseUI
             {
                 stmt = conn.createStatement();
 
+                int eID = i;
                 String name = generateRandom.generateRandomName();
+                int payRate = generateRandom.generateRandomPay();
+                String hireDate = generateRandom.generateRandomDate();
 
-                sql = "INSERT INTO 'Employee' (eID, name, payRate, hireDate)";
+                sql = "INSERT INTO 'Employee' (eID, name, payRate, hireDate) " +
+                        "VALUES (" + eID + ", '" + name + "', " + payRate + ", '" + hireDate + "');";
                 stmt.executeUpdate(sql);
+                stmt.close();
+                conn.commit();
             }
         }
         catch(SQLException e)
