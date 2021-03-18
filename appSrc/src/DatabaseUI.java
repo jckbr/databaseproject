@@ -294,7 +294,7 @@ public class DatabaseUI
 		ResultSet result = stmt.executeQuery(sql);
 
 
-        updateButton.addActionListener(new ActionListener() {
+        newTransButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e){
         		frame.remove(sp);
         		frame.remove(sp1);
