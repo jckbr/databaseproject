@@ -30,6 +30,7 @@ public class DatabaseUI
 //        addBuyers(100);
 //        addStore(50);
 //        addEmployees(99);
+        addGames(250);
 
         // Adding buttons
         JButton newTransButton = new JButton("New");
@@ -451,10 +452,8 @@ public class DatabaseUI
         }
     }
 
-    public void addGames(int amount)
+    public static void addGames(int amount)
     {
-        int id = 0;
-
         try
         {
             conn.setAutoCommit(false);
@@ -463,10 +462,18 @@ public class DatabaseUI
             {
                 stmt = conn.createStatement();
 
+                int gID = i;
                 String name = generateRandom.generateRandomGame();
+                String genre = generateRandom.generateRandomGenre();
+                String releaseDate = generateRandom.generateRandomDate();
+                int price = generateRandom.generateRandomPrice();
+                int sID = (int) (Math.random() * 49);
 
-                sql = "INSERT INTO 'Games' (gID, name, genre, releaseDate, price, sID)";
+                sql = "INSERT INTO 'Games' (gID, name, genre, releaseDate, price, sID)" +
+                        "VALUES (" + gID + ", '" + name + "', '" + genre + "', '" + releaseDate + "', " + price + ", " + sID + ");";
                 stmt.executeUpdate(sql);
+                stmt.close();
+                conn.commit();
             }
         }
         catch(SQLException e)

@@ -97,7 +97,7 @@ public class GenerateRandom
 
         try
         {
-            File dict = new File("words_alpha.txt");
+            File dict = new File("./appSrc/src/words_alpha.txt");
             Scanner readDict = new Scanner(dict);
 
             while(readDict.hasNextLine())
