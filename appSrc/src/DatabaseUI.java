@@ -332,6 +332,14 @@ public class DatabaseUI
 
     public static void updateTransaction(ResultSet Ers, ResultSet Grs, ResultSet Brs, ResultSet result) {
     	//adds to the transaction list and pushes the change to the database, then re-loads the table
+
+        if(Ers == null || Grs == null || Brs == null || result == null)
+        {
+            System.out.println("1");
+        }
+
+        System.out.println("2");
+
     	ArrayList<Integer> emplID = new ArrayList<Integer>();
     	ArrayList<Integer> gamID = new ArrayList<Integer>();
     	ArrayList<Integer> buyID = new ArrayList<Integer>();
@@ -353,7 +361,7 @@ public class DatabaseUI
 				buyID.add(Brs.getInt("bID"));
 			}
 
-		} catch (SQLException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
     	Integer[] EidNums = emplID.toArray(new Integer[0]);
@@ -376,16 +384,15 @@ public class DatabaseUI
     	finishButton.addActionListener(new ActionListener() {
     		public void actionPerformed(ActionEvent e) {
     			//send update and remove the panel1 from frame. then return
-    			sql = "INSERT INTO Rent(eID, transactionNum, bID, gID) VALUES (" +em.getSelectedItem() +","
-    								+(transNum+1) +"," +bu.getSelectedItem() +"," +ga.getSelectedItem() +");";
+    			sql = "INSERT INTO Rent(eID, transactionNum, bID, gID) VALUES (" +em.getSelectedItem() +", "
+    								+(transNum+1) +", " +bu.getSelectedItem() +", " +ga.getSelectedItem() +");";
     			try {
 					stmt.executeUpdate(sql);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
     			frame.remove(panel1);
-    			return;
-    		}
+            }
     	});
 
     	p1.add(emLab);
