@@ -15,7 +15,7 @@ public class DatabaseUI
     private static String sql;
     private static GenerateRandom generateRandom = new GenerateRandom();
 
-    public static void main(String args[]) throws SQLException
+    public static void main(String[] args) throws SQLException
     {
         // Creating the Frame
     	//JFrame frame = new JFrame("Game Rental Database");
@@ -26,12 +26,19 @@ public class DatabaseUI
 
         Statement stmt = conn.createStatement();
 
-        // Add default values
-        //addBuyers(100);
-        //addStore(50);
-        //addEmployees(99);
-        //addGames(250);
-        //addManager(20);
+        // Add default values if program is ran with '1' as argument
+        if(args.length != 0 && args[0].equals("1"))
+        {
+            addBuyers(100);
+            addStore(50);
+            addEmployees(99);
+            addGames(250);
+            addManager(20);
+        }
+        else
+        {
+            System.out.println("Database may be empty. Run program with '1' as argument to generate values.");
+        }
 
         // Adding buttons
         JButton newTransButton = new JButton("New");
@@ -62,7 +69,7 @@ public class DatabaseUI
         
         int gColAm = rs.getMetaData().getColumnCount();
         
-        String gameColumn [] = {"ID Number", "Name", "Genre", "Release Date", "Price", "Store ID"};
+        String[] gameColumn = {"ID Number", "Name", "Genre", "Release Date", "Price", "Store ID"};
        
         DefaultTableModel gameTableModel = new DefaultTableModel(gameColumn, 0);
         
@@ -91,7 +98,7 @@ public class DatabaseUI
         
         int bColAm = rs.getMetaData().getColumnCount();
         
-        String buyerColumn[] = {"ID Number", "Name", "Interest"};
+        String[] buyerColumn = {"ID Number", "Name", "Interest"};
         
         DefaultTableModel buyerTableModel = new DefaultTableModel(buyerColumn, 0);
         
@@ -118,7 +125,7 @@ public class DatabaseUI
         
         int eColAm = rs.getMetaData().getColumnCount();
         
-        String employeeColumn [] = {"ID Number", "Name", "Pay Rate", "Hire Date"};
+        String[] employeeColumn = {"ID Number", "Name", "Pay Rate", "Hire Date"};
        
         DefaultTableModel employeeTableModel = new DefaultTableModel(employeeColumn, 0);
         
@@ -146,7 +153,7 @@ public class DatabaseUI
         
         int mColAm = rs.getMetaData().getColumnCount();
         
-        String managerColumn[] = {"Employee ID Number", "Store ID Number"};
+        String[] managerColumn = {"Employee ID Number", "Store ID Number"};
         
         DefaultTableModel managerTableModel = new DefaultTableModel(managerColumn, 0);
         
@@ -171,7 +178,7 @@ public class DatabaseUI
         
         int rColAm = rs.getMetaData().getColumnCount();
         
-        String rentColumn[] = {"Employee ID Number", "Transaction Number", "Buyer ID Number", "Game ID Number"};
+        String[] rentColumn = {"Employee ID Number", "Transaction Number", "Buyer ID Number", "Game ID Number"};
         
         DefaultTableModel rentTableModel = new DefaultTableModel(rentColumn, 0);
         
@@ -198,7 +205,7 @@ public class DatabaseUI
         
         int sColAm = rs.getMetaData().getColumnCount();
         
-        String storeColumn[] = {"Store ID Number", "Region", "Employee Count", "Game Count"};
+        String[] storeColumn = {"Store ID Number", "Region", "Employee Count", "Game Count"};
         
         DefaultTableModel storeTableModel = new DefaultTableModel(storeColumn, 0);
         
@@ -307,7 +314,7 @@ public class DatabaseUI
         conn.close();
     }
 
-    public static boolean connectDB()
+    public static void connectDB()
     {
         try
         {
@@ -317,11 +324,9 @@ public class DatabaseUI
             conn = DriverManager.getConnection(url);
 
             System.out.println("Connection success");
-            return true;
         }catch(Exception e) {
             System.out.println(e.getMessage());
             System.out.println("Connection failed");
-            return false;
         }
     }
     
