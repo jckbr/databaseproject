@@ -27,11 +27,11 @@ public class DatabaseUI
         Statement stmt = conn.createStatement();
 
         // Add default values
-//        addBuyers(100);
-//        addStore(50);
-//        addEmployees(99);
-//        addGames(250);
-//        addManager(20);
+        addBuyers(100);
+        addStore(50);
+        addEmployees(99);
+        addGames(250);
+        addManager(20);
 
         // Adding buttons
         JButton newTransButton = new JButton("New");
