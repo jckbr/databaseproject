@@ -12,7 +12,7 @@ public class GenerateRandom
 
         try
         {
-            File dict = new File("\\names.txt");
+            File dict = new File("./appSrc/src/names.txt");
             Scanner readNames = new Scanner(dict);
 
             while(readNames.hasNextLine())
@@ -38,7 +38,7 @@ public class GenerateRandom
 
         try
         {
-            File dict = new File("genres.txt");
+            File dict = new File("./appSrc/src/genres.txt");
             Scanner readGenres = new Scanner(dict);
 
             while(readGenres.hasNextLine())
