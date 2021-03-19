@@ -310,7 +310,6 @@ public class DatabaseUI
         		frame.remove(sp4);
         		frame.remove(sp5);
 
-
         		updateTransaction(Ers, Grs, Brs, result);
         	}
         }
@@ -397,6 +396,7 @@ public class DatabaseUI
     			sql = "INSERT INTO Rent(eID, transactionNum, bID, gID) VALUES (" +em.getSelectedItem() +", "
     								+(transNum+1) +", " +bu.getSelectedItem() +", " +ga.getSelectedItem() +");";
     			try {
+    			    stmt = conn.createStatement();
 					stmt.executeUpdate(sql);
 				} catch (SQLException e1) {
 					e1.printStackTrace();
