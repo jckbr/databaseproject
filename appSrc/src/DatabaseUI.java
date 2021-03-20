@@ -229,6 +229,9 @@ public class DatabaseUI
         String[] tableOptions = {"Games", "Employee", "Managers", "Stores", "Buyers", "Rents"};
         JComboBox tableChoice = new JComboBox(tableOptions);
 
+        frame.add(tableChoice);
+        frame.add(sp);
+
         ActionListener cbAction = new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		String choice = (String) tableChoice.getSelectedItem();
@@ -277,7 +280,6 @@ public class DatabaseUI
         };
 
         tableChoice.addActionListener(cbAction);
-        frame.add(tableChoice);
 
         frame.setVisible(true);
 
