@@ -118,7 +118,6 @@ public class DatabaseUI
 
         buyerTable.setBounds(0,40,300,300);
         buyerTable.setRowSelectionInterval(0,0);
-        buyerTable.setFocusable(false);
         JScrollPane sp4 = new JScrollPane(buyerTable);
 
         //Init Employee Table -----------------------------------------------------------------------
@@ -148,7 +147,6 @@ public class DatabaseUI
 
         employeeTable.setBounds(0,40,300,300);
         employeeTable.setRowSelectionInterval(0,0);
-        employeeTable.setFocusable(false);
         JScrollPane sp1 = new JScrollPane(employeeTable);
 
         //Init Manager Table -----------------------------------------------------------------------
@@ -175,7 +173,6 @@ public class DatabaseUI
 
         managerTable.setBounds(0,40,300,300);
         managerTable.setRowSelectionInterval(0,0);
-        managerTable.setFocusable(false);
         JScrollPane sp2 = new JScrollPane(managerTable);
 
         //Init Rent Table -----------------------------------------------------------------------
@@ -204,7 +201,6 @@ public class DatabaseUI
 
         rentTable.setBounds(0,40,300,300);
         rentTable.setRowSelectionInterval(0,0);
-        rentTable.setFocusable(false);
         JScrollPane sp5 = new JScrollPane(rentTable);
 
         //Init Store Table -----------------------------------------------------------------------
@@ -233,7 +229,6 @@ public class DatabaseUI
 
         storeTable.setBounds(0,40,300,300);
         storeTable.setRowSelectionInterval(0,0);
-        storeTable.setFocusable(false);
         JScrollPane sp3 = new JScrollPane(storeTable);
 
         //adding a dropdown for the table menus
@@ -297,7 +292,7 @@ public class DatabaseUI
 
         // Button Listeners
 
-        //New Transaction Listener
+            // New Transaction Listener
         String sql1 = "SELECT eID FROM 'Employee';";
         stmt = conn.createStatement();
         final ResultSet Ers = stmt.executeQuery(sql1);
@@ -329,6 +324,39 @@ public class DatabaseUI
         }
         );
 
+        delButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e){
+                String choice = (String) tableChoice.getSelectedItem();
+
+                switch(choice) {
+                    case "Games":
+                        gameTableModel.removeRow(0);
+
+                        break;
+                    case "Employee":
+                        employeeTableModel.removeRow(0);
+
+                        break;
+                    case "Managers":
+                        managerTableModel.removeRow(0);
+
+                        break;
+                    case "Stores":
+                        storeTableModel.removeRow(0);
+
+                        break;
+                    case "Buyers":
+                        buyerTableModel.removeRow(0);
+
+                        break;
+                    case "Rents":
+                        rentTableModel.removeRow(0);
+
+                        break;
+                }
+            }
+        });
+
         updateButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		addBuyers(1);
@@ -337,8 +365,8 @@ public class DatabaseUI
                 addGames(1);
                 addManager(1);
         	}
-        	
-        });
+        }
+        );
     }
 
     public static void connectDB()
