@@ -20,7 +20,7 @@ public class DatabaseUI
         // Creating the Frame
     	//JFrame frame = new JFrame("Game Rental Database");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 400);
+        frame.setSize(500, 550);
 
         connectDB();
 
@@ -89,6 +89,7 @@ public class DatabaseUI
         }
 
         gameTable.setBounds(0,40,300,300);
+        gameTable.setRowSelectionInterval(0,0);
         JScrollPane sp = new JScrollPane(gameTable);
 
         //Init Buyers Table -----------------------------------------------------------------------
@@ -116,6 +117,8 @@ public class DatabaseUI
         }
 
         buyerTable.setBounds(0,40,300,300);
+        buyerTable.setRowSelectionInterval(0,0);
+        buyerTable.setFocusable(false);
         JScrollPane sp4 = new JScrollPane(buyerTable);
 
         //Init Employee Table -----------------------------------------------------------------------
@@ -144,6 +147,8 @@ public class DatabaseUI
         }
 
         employeeTable.setBounds(0,40,300,300);
+        employeeTable.setRowSelectionInterval(0,0);
+        employeeTable.setFocusable(false);
         JScrollPane sp1 = new JScrollPane(employeeTable);
 
         //Init Manager Table -----------------------------------------------------------------------
@@ -169,6 +174,8 @@ public class DatabaseUI
         }
 
         managerTable.setBounds(0,40,300,300);
+        managerTable.setRowSelectionInterval(0,0);
+        managerTable.setFocusable(false);
         JScrollPane sp2 = new JScrollPane(managerTable);
 
         //Init Rent Table -----------------------------------------------------------------------
@@ -196,6 +203,8 @@ public class DatabaseUI
         }
 
         rentTable.setBounds(0,40,300,300);
+        rentTable.setRowSelectionInterval(0,0);
+        rentTable.setFocusable(false);
         JScrollPane sp5 = new JScrollPane(rentTable);
 
         //Init Store Table -----------------------------------------------------------------------
@@ -223,9 +232,12 @@ public class DatabaseUI
         }
 
         storeTable.setBounds(0,40,300,300);
+        storeTable.setRowSelectionInterval(0,0);
+        storeTable.setFocusable(false);
         JScrollPane sp3 = new JScrollPane(storeTable);
 
-      //adding a dropdown for the table menus
+        //adding a dropdown for the table menus
+
         String[] tableOptions = {"Games", "Employee", "Managers", "Stores", "Buyers", "Rents"};
         JComboBox tableChoice = new JComboBox(tableOptions);
 
