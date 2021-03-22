@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Scanner;
+import java.lang.Object.*;
+import java.text.*;
 
 public class GenerateRandom
 {
@@ -68,7 +70,7 @@ public class GenerateRandom
         int day = (int) (Math.random() * 28) + 1;
         int year = (int) (Math.random() * 2019) + 1;
 
-        return month + "-" + day + "-" + year;
+        return month + "." + day + "." + year;
     }
 
     public String generateRandomRegion()

@@ -4,7 +4,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.lang.Object.*;
 
 
 public class DatabaseUI
@@ -14,6 +17,7 @@ public class DatabaseUI
 	public static JFrame frame = new JFrame("Game Rental Database");
     private static String sql;
     private static GenerateRandom generateRandom = new GenerateRandom();
+    public static SimpleDateFormat sdf = new SimpleDateFormat("mm.dd.yyyy");
 
     public static void main(String[] args) throws SQLException
     {
@@ -319,7 +323,7 @@ public class DatabaseUI
         		frame.remove(sp4);
         		frame.remove(sp5);
 
-        		updateTransaction(Ers, Grs, Brs, result);
+        		updateTransaction(Ers, Grs, Brs, result, rentTableModel);
         	}
         }
         );
@@ -400,11 +404,132 @@ public class DatabaseUI
 
         updateButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		addBuyers(1);
-                addStore(1);
-                addEmployees(1);
-                addGames(1);
-                addManager(1);
+        		String choice = (String)tableChoice.getSelectedItem();
+        		JFrame frame2 = new JFrame("Get Information");
+        		
+        		switch(choice) {
+        		case "Games":
+        			Object[] gameRow = new Object[gColAm];
+
+                	gameRow[0] = Integer.parseInt((String) JOptionPane.showInputDialog(frame2, "Enter the Game ID Number: ", "Enter Info", JOptionPane.PLAIN_MESSAGE, null, null, 0));
+                	gameRow[1] = (String) JOptionPane.showInputDialog(frame2, "Enter the Game Name: ", "Enter Info", JOptionPane.PLAIN_MESSAGE, null, null, 0);
+                	gameRow[2] = (String) JOptionPane.showInputDialog(frame2, "Enter the Game Genre: ", "Enter Info", JOptionPane.PLAIN_MESSAGE, null, null, 0);
+                	try {
+						gameRow[3] = sdf.parse((String) JOptionPane.showInputDialog(frame2, "Enter the Game Release Date (mm.dd.yyyy): ", "Enter Info", JOptionPane.PLAIN_MESSAGE, null, null, 0));
+					} catch (HeadlessException e2) {
+						e2.printStackTrace();
+					} catch (ParseException e2) {
+						e2.printStackTrace();
+					}
+                	gameRow[4] = Double.parseDouble((String) JOptionPane.showInputDialog(frame2, "Enter the Game Price: ", "Enter Info", JOptionPane.PLAIN_MESSAGE, null, null, 0));
+                	gameRow[5] = Integer.parseInt((String) JOptionPane.showInputDialog(frame2, "Enter the Store: ", "Enter Info", JOptionPane.PLAIN_MESSAGE, null, null, 0));
+
+                	gameTableModel.addRow(gameRow);
+                	gameTableModel.fireTableDataChanged();
+                	
+                	sql = "INSERT INTO 'Games' (gID, name, genre, releaseDate, price, sID)" +
+                            "VALUES (" + gameRow[0] + ", '" + gameRow[1] + "', '" + gameRow[2] + "', '" + gameRow[3] + "', " + gameRow[4] + ", " + gameRow[5] + ");";
+                	try {
+						Statement stmt1 = conn.createStatement();
+						stmt1.executeUpdate(sql);
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+                	
+        			break;
+        		case "Employee":
+        			Object[] employeeRow = new Object[eColAm];
+
+                	employeeRow[0] = Integer.parseInt((String) JOptionPane.showInputDialog(frame2, "Enter the Employee ID Number: ", "Enter Info", JOptionPane.PLAIN_MESSAGE, null, null, 0));
+                	employeeRow[1] = (String) JOptionPane.showInputDialog(frame2, "Enter the Employee Name: ", "Enter Info", JOptionPane.PLAIN_MESSAGE, null, null, 0);
+                	employeeRow[2] = Integer.parseInt((String) JOptionPane.showInputDialog(frame2, "Enter the Employee Pay Rate: ", "Enter Info", JOptionPane.PLAIN_MESSAGE, null, null, 0));
+                	try {
+						employeeRow[3] = sdf.parse((String) JOptionPane.showInputDialog(frame2, "Enter the Employee Hire Date (mm.dd.yyyy): ", "Enter Info", JOptionPane.PLAIN_MESSAGE, null, null, 0));
+					} catch (HeadlessException e2) {
+						e2.printStackTrace();
+					} catch (ParseException e2) {
+						e2.printStackTrace();
+					}
+
+                	employeeTableModel.addRow(employeeRow);
+                	employeeTableModel.fireTableDataChanged();
+                	
+                	sql = "INSERT INTO 'Employee' (eID, name, payRate, hireDate) " +
+                            "VALUES (" + employeeRow[0] + ", '" + employeeRow[1] + "', " + employeeRow[2] + ", '" + employeeRow[3] + "');";
+                	try {
+                		Statement stmt1 = conn.createStatement();
+                		stmt1.executeUpdate(sql);
+                	}catch(SQLException e1) {
+                		e1.printStackTrace();
+                	}
+                	
+        			break;
+        		case "Managers":
+        			Object[] managerRow = new Object[mColAm];
+
+                	managerRow[0] = Integer.parseInt((String) JOptionPane.showInputDialog(frame2, "Enter the Employee ID Number: ", "Enter Info", JOptionPane.PLAIN_MESSAGE, null, null, 0));
+                	managerRow[1] = Integer.parseInt((String) JOptionPane.showInputDialog(frame2, "Enter the Store ID Number: ", "Enter Info", JOptionPane.PLAIN_MESSAGE, null, null, 0));
+
+                	managerTableModel.addRow(managerRow);
+                	managerTableModel.fireTableDataChanged();
+        			
+                	sql = "INSERT INTO 'Manager' (sID, eID)" +
+                            "VALUES (" + managerRow[0] + ", " + managerRow[1] + ");";
+                	try {
+                		Statement stmt1 = conn.createStatement();
+                		stmt1.executeUpdate(sql);
+                	}catch(SQLException e1) {
+                		e1.printStackTrace();
+                	}
+                	
+        			break;
+        		case "Stores":
+        			Object[] storeRow = new Object[sColAm];
+
+                	storeRow[0] = Integer.parseInt((String) JOptionPane.showInputDialog(frame2, "Enter the Store ID Number: ", "Enter Info", JOptionPane.PLAIN_MESSAGE, null, null, 0));
+                	storeRow[1] = (String) JOptionPane.showInputDialog(frame2, "Enter the Store Region: ", "Enter Info", JOptionPane.PLAIN_MESSAGE, null, null, 0);
+                	storeRow[2] = Integer.parseInt((String) JOptionPane.showInputDialog(frame2, "Enter the Employee Count: ", "Enter Info", JOptionPane.PLAIN_MESSAGE, null, null, 0));
+                	storeRow[3] = Integer.parseInt((String) JOptionPane.showInputDialog(frame2, "Enter the Game Count: ", "Enter Info", JOptionPane.PLAIN_MESSAGE, null, null, 0));
+
+                	storeTableModel.addRow(storeRow);
+                	storeTableModel.fireTableDataChanged();
+                	
+                	sql = "INSERT INTO 'Store' (sID, region, employeeCount, gameCount) " +
+                            "VALUES (" + storeRow[0] + ", '" + storeRow[1] + "', " + storeRow[2] + ", " + storeRow[3] + ");";
+                	try {
+                		Statement stmt1 = conn.createStatement();
+                		stmt1.executeUpdate(sql);
+                	}catch(SQLException e1) {
+                		e1.printStackTrace();
+                	}
+                	
+        			break;
+        		case "Buyers":
+        			Object[] buyerRow = new Object[bColAm];
+
+                	buyerRow[0] = Integer.parseInt((String) JOptionPane.showInputDialog(frame2, "Enter the Buyer ID: ", "Enter Info", JOptionPane.PLAIN_MESSAGE, null, null, 0));
+                	buyerRow[1] = (String) JOptionPane.showInputDialog(frame2, "Enter the Buyer Name: ", "Enter Info", JOptionPane.PLAIN_MESSAGE, null, null, 0);
+                	buyerRow[2] = (String) JOptionPane.showInputDialog(frame2, "Enter the Buyer Interest: ", "Enter Info", JOptionPane.PLAIN_MESSAGE, null, null, 0);
+                	
+                	buyerTableModel.addRow(buyerRow);
+                	buyerTableModel.fireTableDataChanged();
+        			
+                	sql = "INSERT INTO 'Buyers' (bID, name, interest) " +
+                            "VALUES (" + buyerRow[0] + ", '" + buyerRow[1] + "', '" + buyerRow[2] + "');";
+                	try {
+                		Statement stmt1 = conn.createStatement();
+                		stmt1.executeUpdate(sql);
+                	}catch(SQLException e1) {
+                		e1.printStackTrace();
+                	}
+                	
+        			break;
+        		case "Rents":
+        			JOptionPane.showConfirmDialog(frame2, "Please use the 'New' Option to add a new transaction.");
+        			break;
+        		
+        		}
+        		
         	}
         }
         );
@@ -583,7 +708,7 @@ public class DatabaseUI
         }
     }
 
-    public static void updateTransaction(ResultSet Ers, ResultSet Grs, ResultSet Brs, ResultSet result) {
+    public static void updateTransaction(ResultSet Ers, ResultSet Grs, ResultSet Brs, ResultSet result, DefaultTableModel table) {
     	//adds to the transaction list and pushes the change to the database, then re-loads the table
 
     	ArrayList<Integer> emplID = new ArrayList<Integer>();
@@ -641,6 +766,13 @@ public class DatabaseUI
 				} catch (SQLException e1) {
 					e1.printStackTrace();
 				}
+    			Object[] newItem = new Object[4];
+    			newItem[0] = em.getSelectedItem();
+    			newItem[1] = (transNum+1);
+    			newItem[2] = bu.getSelectedItem();
+    			newItem[3] = ga.getSelectedItem();
+    			table.addRow(newItem);
+    			table.fireTableDataChanged();
     			frame.remove(panel1);
             }
     	});
