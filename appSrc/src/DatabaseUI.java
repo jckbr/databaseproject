@@ -327,30 +327,63 @@ public class DatabaseUI
         delButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e){
                 String choice = (String) tableChoice.getSelectedItem();
-
+                int removeIndex = 0;
+                int toRemove;
+                String sql = "";
+                
                 switch(choice) {
                     case "Games":
-                        gameTableModel.removeRow(0);
+                    	toRemove = getRemoveInfo(choice);
+                    	removeIndex = getIndexToRemove(toRemove, gameTableModel, 0);
+                        gameTableModel.removeRow(removeIndex);
+                        gameTableModel.fireTableDataChanged();
+                        
+                        removeFromTable("Games", "gID", toRemove);
 
                         break;
                     case "Employee":
-                        employeeTableModel.removeRow(0);
+                    	toRemove = getRemoveInfo(choice);
+                    	removeIndex = getIndexToRemove(toRemove, employeeTableModel, 0);
+                        employeeTableModel.removeRow(removeIndex);
+                        employeeTableModel.fireTableDataChanged();
+                        
+                        removeFromTable("Employee", "eID", toRemove);
 
                         break;
                     case "Managers":
-                        managerTableModel.removeRow(0);
+                    	toRemove = getRemoveInfo(choice);
+                    	removeIndex = getIndexToRemove(toRemove, managerTableModel, 0);
+                        managerTableModel.removeRow(removeIndex);
+                        managerTableModel.fireTableDataChanged();
+                        
+                        removeFromTable("Manager", "eID", toRemove);
 
                         break;
                     case "Stores":
-                        storeTableModel.removeRow(0);
+                    	toRemove = getRemoveInfo(choice);
+                    	removeIndex = getIndexToRemove(toRemove, storeTableModel, 0);
+                        storeTableModel.removeRow(removeIndex);
+                        storeTableModel.fireTableDataChanged();
 
+                        removeFromTable("Store", "sID", toRemove);
+                        
                         break;
                     case "Buyers":
-                        buyerTableModel.removeRow(0);
+                    	toRemove = getRemoveInfo(choice);
+                    	removeIndex = getIndexToRemove(toRemove, buyerTableModel, 0);
+                        buyerTableModel.removeRow(removeIndex);
+                        buyerTableModel.fireTableDataChanged();
+                        
+                        removeFromTable("Buyers", "bID", toRemove);
 
                         break;
                     case "Rents":
-                        rentTableModel.removeRow(0);
+                    	toRemove = getRemoveInfo(choice);
+                    	removeIndex = getIndexToRemove(toRemove, rentTableModel, 1);
+                        rentTableModel.removeRow(removeIndex);
+                        rentTableModel.fireTableDataChanged();
+                        
+                        removeFromTable("Rent", "transactionNum", toRemove);
 
                         break;
                 }
@@ -465,6 +498,67 @@ public class DatabaseUI
         });
     }
 
+    public static int getRemoveInfo(String choice) {
+    	
+    	String option = "";
+    	JFrame frame1 = new JFrame("Enter Information");
+    	
+    	switch(choice) {
+        case "Games":
+        	option = (String) JOptionPane.showInputDialog(frame1, "Enter the game ID number to remove: ", "Enter Information", JOptionPane.PLAIN_MESSAGE, null, null, "Input");
+
+            break;
+        case "Employee":
+        	option = (String) JOptionPane.showInputDialog(frame1, "Enter the employee ID number to remove: ", "Enter Information", JOptionPane.PLAIN_MESSAGE, null, null, "Input");
+
+            break;
+        case "Managers":
+        	option = (String) JOptionPane.showInputDialog(frame1, "Enter the manager ID number to remove: ", "Enter Information", JOptionPane.PLAIN_MESSAGE, null, null, "Input");
+
+            break;
+        case "Stores":
+        	option = (String) JOptionPane.showInputDialog(frame1, "Enter the store ID number to remove: ", "Enter Information", JOptionPane.PLAIN_MESSAGE, null, null, "Input");
+
+            break;
+        case "Buyers":
+        	option = (String) JOptionPane.showInputDialog(frame1, "Enter the buyer ID number to remove: ", "Enter Information", JOptionPane.PLAIN_MESSAGE, null, null, "Input");
+
+            break;
+        case "Rents":
+        	option = (String) JOptionPane.showInputDialog(frame1, "Enter the transaction number to remove: ", "Enter Information", JOptionPane.PLAIN_MESSAGE, null, null, "Input");
+
+            break;
+    }
+    	
+    	return Integer.parseInt(option);
+    }
+ 
+    public static int getIndexToRemove(int toRemove, DefaultTableModel table, int column) {
+    	
+    	int foundIndex = 0;
+    	
+    	for(int i = 0; i < table.getRowCount(); i++){//For each row
+    		if((Integer)table.getValueAt(i, column) == toRemove){//Search the model
+    			foundIndex = i;
+    	    }
+    	    
+    	}//For loop outer
+    	
+    	return foundIndex;
+    }
+    
+    public static void removeFromTable(String table, String column, int data) {
+    	String sql = "DELETE FROM " +table +" WHERE " +column +" = " +data +";";
+    	try {
+			stmt = conn.createStatement();
+			stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+    	
+    	
+    }
+    
     public static void connectDB()
     {
         try
