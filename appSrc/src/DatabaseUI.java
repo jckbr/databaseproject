@@ -45,11 +45,11 @@ public class DatabaseUI
         }
 
         // Adding buttons
-        JButton newTransButton = new JButton("New");
+        JButton newTransButton = new JButton("New Transaction");
         newTransButton.setBounds(0,50,50,50);
         JButton delButton = new JButton("Delete");
         delButton.setBounds(0,50,100,50);
-        JButton updateButton = new JButton("Update");
+        JButton updateButton = new JButton("Update Database");
         updateButton.setBounds(0,50,100,50);
         JButton nextButton = new JButton("Next");
         nextButton.setBounds(0,50,100,50);
@@ -774,6 +774,7 @@ public class DatabaseUI
     			table.addRow(newItem);
     			table.fireTableDataChanged();
     			frame.remove(panel1);
+    			frame.repaint();
             }
     	});
 
