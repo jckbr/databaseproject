@@ -465,10 +465,8 @@ public class DatabaseUI
                     }
 
                 	try {
-						employeeRow[3] = sdf.parse((String) JOptionPane.showInputDialog(frame2, "Enter the Employee Hire Date (mm.dd.yyyy): ", "Enter Info", JOptionPane.PLAIN_MESSAGE, null, null, 0));
+						employeeRow[3] = (String) JOptionPane.showInputDialog(frame2, "Enter the Employee Hire Date (mm.dd.yyyy): ", "Enter Info", JOptionPane.PLAIN_MESSAGE, null, null, 0);
 					} catch (HeadlessException e2) {
-						e2.printStackTrace();
-					} catch (ParseException e2) {
 						e2.printStackTrace();
 					}
 
