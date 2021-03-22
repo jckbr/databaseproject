@@ -348,6 +348,10 @@ public class DatabaseUI
                         employeeTableModel.fireTableDataChanged();
                         
                         removeFromTable("Employee", "eID", toRemove);
+                        
+                        removeIndex = getIndexToRemove(toRemove, managerTableModel, 0);
+                        managerTableModel.removeRow(removeIndex);
+                        managerTableModel.fireTableDataChanged();
 
                         break;
                     case "Managers":
@@ -366,6 +370,10 @@ public class DatabaseUI
                         storeTableModel.fireTableDataChanged();
 
                         removeFromTable("Store", "sID", toRemove);
+                        
+                        removeIndex = getIndexToRemove(toRemove, managerTableModel, 1);
+                        managerTableModel.removeRow(removeIndex);
+                        managerTableModel.fireTableDataChanged();
                         
                         break;
                     case "Buyers":
