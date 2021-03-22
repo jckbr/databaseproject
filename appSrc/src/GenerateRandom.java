@@ -68,7 +68,7 @@ public class GenerateRandom
         int day = (int) (Math.random() * 28) + 1;
         int year = (int) (Math.random() * 2019) + 1;
 
-        return month + "." + day + "." + year;
+        return month + "-" + day + "-" + year;
     }
 
     public String generateRandomRegion()
