@@ -367,6 +367,102 @@ public class DatabaseUI
         	}
         }
         );
+
+        nextButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                frame.remove(sp);
+                frame.remove(sp1);
+                frame.remove(sp2);
+                frame.remove(sp3);
+                frame.remove(sp4);
+                frame.remove(sp5);
+
+                String choice = (String) tableChoice.getSelectedItem();
+
+                switch(choice) {
+                    case "Games":
+                        frame.add(sp1);
+
+                        frame.setVisible(true);
+                        break;
+                    case "Employee":
+                        frame.add(sp2);
+
+                        frame.setVisible(true);
+                        break;
+                    case "Managers":
+                        frame.add(sp3);
+
+                        frame.setVisible(true);
+                        break;
+                    case "Stores":
+                        frame.add(sp4);
+
+                        frame.setVisible(true);
+                        break;
+                    case "Buyers":
+                        frame.add(sp5);
+
+                        frame.setVisible(true);
+                        break;
+                    case "Rents":
+                        frame.add(sp);
+
+                        frame.setVisible(true);
+                        break;
+                }
+            }
+        });
+
+        prevButton.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                frame.remove(sp);
+                frame.remove(sp1);
+                frame.remove(sp2);
+                frame.remove(sp3);
+                frame.remove(sp4);
+                frame.remove(sp5);
+
+                String choice = (String) tableChoice.getSelectedItem();
+
+                switch(choice) {
+                    case "Games":
+                        frame.add(sp5);
+
+                        frame.setVisible(true);
+                        break;
+                    case "Employee":
+                        frame.add(sp4);
+
+                        frame.setVisible(true);
+                        break;
+                    case "Managers":
+                        frame.add(sp3);
+
+                        frame.setVisible(true);
+                        break;
+                    case "Stores":
+                        frame.add(sp2);
+
+                        frame.setVisible(true);
+                        break;
+                    case "Buyers":
+                        frame.add(sp1);
+
+                        frame.setVisible(true);
+                        break;
+                    case "Rents":
+                        frame.add(sp);
+
+                        frame.setVisible(true);
+                        break;
+                }
+            }
+        });
     }
 
     public static void connectDB()
