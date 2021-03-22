@@ -17,14 +17,14 @@ public class DatabaseUI
 	public static JFrame frame = new JFrame("Game Rental Database");
     private static String sql;
     private static GenerateRandom generateRandom = new GenerateRandom();
-    public static SimpleDateFormat sdf = new SimpleDateFormat("mm.dd.yyyy");
+    public static SimpleDateFormat sdf = new SimpleDateFormat("MM-DD-yyyy");
 
     public static void main(String[] args) throws SQLException
     {
         // Creating the Frame
     	//JFrame frame = new JFrame("Game Rental Database");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 550);
+        frame.setSize(625, 550);
 
         connectDB();
 
@@ -85,14 +85,14 @@ public class DatabaseUI
         	gameRow[0] = rs.getInt("gID");
         	gameRow[1] = rs.getString("name");
         	gameRow[2] = rs.getString("genre");
-        	gameRow[3] = rs.getDate("releaseDate");
+        	gameRow[3] = rs.getString("releaseDate");
         	gameRow[4] = rs.getDouble("price");
         	gameRow[5] = rs.getInt("sID");
 
         	gameTableModel.addRow(gameRow);
         }
 
-        gameTable.setBounds(0,40,300,300);
+        gameTable.setBounds(0,40,600,300);
         gameTable.setRowSelectionInterval(0,0);
         JScrollPane sp = new JScrollPane(gameTable);
 
@@ -120,7 +120,7 @@ public class DatabaseUI
 
         }
 
-        buyerTable.setBounds(0,40,300,300);
+        buyerTable.setBounds(0,40,400,300);
         buyerTable.setRowSelectionInterval(0,0);
         JScrollPane sp4 = new JScrollPane(buyerTable);
 
@@ -149,7 +149,7 @@ public class DatabaseUI
 
         }
 
-        employeeTable.setBounds(0,40,300,300);
+        employeeTable.setBounds(0,40,400,300);
         employeeTable.setRowSelectionInterval(0,0);
         JScrollPane sp1 = new JScrollPane(employeeTable);
 
@@ -175,7 +175,7 @@ public class DatabaseUI
         	managerTableModel.addRow(managerRow);
         }
 
-        managerTable.setBounds(0,40,300,300);
+        managerTable.setBounds(0,40,400,300);
         managerTable.setRowSelectionInterval(0,0);
         JScrollPane sp2 = new JScrollPane(managerTable);
 
@@ -203,7 +203,7 @@ public class DatabaseUI
         	rentTableModel.addRow(rentRow);
         }
 
-        rentTable.setBounds(0,40,300,300);
+        rentTable.setBounds(0,40,400,300);
         rentTable.setRowSelectionInterval(0,0);
         JScrollPane sp5 = new JScrollPane(rentTable);
 
@@ -231,7 +231,7 @@ public class DatabaseUI
         	storeTableModel.addRow(storeRow);
         }
 
-        storeTable.setBounds(0,40,300,300);
+        storeTable.setBounds(0,40,400,300);
         storeTable.setRowSelectionInterval(0,0);
         JScrollPane sp3 = new JScrollPane(storeTable);
 
@@ -422,10 +422,8 @@ public class DatabaseUI
                         System.out.println("ERROR WITH INPUT. TRY AGAIN.");
                     }
                 	try {
-						gameRow[3] = sdf.parse((String) JOptionPane.showInputDialog(frame2, "Enter the Game Release Date (mm.dd.yyyy): ", "Enter Info", JOptionPane.PLAIN_MESSAGE, null, null, 0));
+						gameRow[3] = (String) JOptionPane.showInputDialog(frame2, "Enter the Game Release Date (MM-DD-yyyy): ", "Enter Info", JOptionPane.PLAIN_MESSAGE, null, null, 0);
 					} catch (HeadlessException e2) {
-						e2.printStackTrace();
-					} catch (ParseException e2) {
 						e2.printStackTrace();
 					}
 

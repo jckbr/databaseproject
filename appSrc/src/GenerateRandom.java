@@ -2,8 +2,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Scanner;
-import java.lang.Object.*;
-import java.text.*;
 
 public class GenerateRandom
 {
