@@ -658,26 +658,32 @@ public class DatabaseUI
             		frame.remove(sp);
             		frame.add(sp1);
             		frame.setVisible(true);
+            		tableChoice.setSelectedIndex(1);
             	}else if(sp1.isShowing()) {
             		frame.remove(sp1);
             		frame.add(sp2);
             		frame.setVisible(true);
+            		tableChoice.setSelectedIndex(2);
             	}else if(sp2.isShowing()) {
             		frame.remove(sp2);
             		frame.add(sp3);
             		frame.setVisible(true);
+            		tableChoice.setSelectedIndex(3);
             	}else if(sp3.isShowing()) {
             		frame.remove(sp3);
             		frame.add(sp4);
             		frame.setVisible(true);
+            		tableChoice.setSelectedIndex(4);
             	}else if(sp4.isShowing()) {
             		frame.remove(sp4);
             		frame.add(sp5);
             		frame.setVisible(true);
+            		tableChoice.setSelectedIndex(5);
             	}else if(sp5.isShowing()) {
             		frame.remove(sp5);
             		frame.add(sp);
             		frame.setVisible(true);
+            		tableChoice.setSelectedIndex(0);
             	}
             	
             }
@@ -692,26 +698,32 @@ public class DatabaseUI
             		frame.remove(sp);
             		frame.add(sp5);
             		frame.setVisible(true);
+            		tableChoice.setSelectedIndex(5);
             	}else if(sp1.isShowing()) {
             		frame.remove(sp1);
             		frame.add(sp);
             		frame.setVisible(true);
+            		tableChoice.setSelectedIndex(0);
             	}else if(sp2.isShowing()) {
             		frame.remove(sp2);
             		frame.add(sp1);
             		frame.setVisible(true);
+            		tableChoice.setSelectedIndex(1);
             	}else if(sp3.isShowing()) {
             		frame.remove(sp3);
             		frame.add(sp2);
             		frame.setVisible(true);
+            		tableChoice.setSelectedIndex(2);
             	}else if(sp4.isShowing()) {
             		frame.remove(sp4);
             		frame.add(sp3);
             		frame.setVisible(true);
+            		tableChoice.setSelectedIndex(3);
             	}else if(sp5.isShowing()) {
             		frame.remove(sp5);
             		frame.add(sp4);
             		frame.setVisible(true);
+            		tableChoice.setSelectedIndex(4);
             	}
             	
             }
