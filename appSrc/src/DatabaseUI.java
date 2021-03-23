@@ -654,47 +654,32 @@ public class DatabaseUI
         {
             public void actionPerformed(ActionEvent e)
             {
-                frame.remove(sp);
-                frame.remove(sp1);
-                frame.remove(sp2);
-                frame.remove(sp3);
-                frame.remove(sp4);
-                frame.remove(sp5);
-
-                String choice = (String) tableChoice.getSelectedItem();
-
-                switch(choice) {
-                    case "Games":
-                        frame.add(sp1);
-
-                        frame.setVisible(true);
-                        break;
-                    case "Employee":
-                        frame.add(sp2);
-
-                        frame.setVisible(true);
-                        break;
-                    case "Managers":
-                        frame.add(sp3);
-
-                        frame.setVisible(true);
-                        break;
-                    case "Stores":
-                        frame.add(sp4);
-
-                        frame.setVisible(true);
-                        break;
-                    case "Buyers":
-                        frame.add(sp5);
-
-                        frame.setVisible(true);
-                        break;
-                    case "Rents":
-                        frame.add(sp);
-
-                        frame.setVisible(true);
-                        break;
-                }
+            	if(sp.isShowing()) {
+            		frame.remove(sp);
+            		frame.add(sp1);
+            		frame.setVisible(true);
+            	}else if(sp1.isShowing()) {
+            		frame.remove(sp1);
+            		frame.add(sp2);
+            		frame.setVisible(true);
+            	}else if(sp2.isShowing()) {
+            		frame.remove(sp2);
+            		frame.add(sp3);
+            		frame.setVisible(true);
+            	}else if(sp3.isShowing()) {
+            		frame.remove(sp3);
+            		frame.add(sp4);
+            		frame.setVisible(true);
+            	}else if(sp4.isShowing()) {
+            		frame.remove(sp4);
+            		frame.add(sp5);
+            		frame.setVisible(true);
+            	}else if(sp5.isShowing()) {
+            		frame.remove(sp5);
+            		frame.add(sp);
+            		frame.setVisible(true);
+            	}
+            	
             }
         });
 
@@ -702,47 +687,33 @@ public class DatabaseUI
         {
             public void actionPerformed(ActionEvent e)
             {
-                frame.remove(sp);
-                frame.remove(sp1);
-                frame.remove(sp2);
-                frame.remove(sp3);
-                frame.remove(sp4);
-                frame.remove(sp5);
-
-                String choice = (String) tableChoice.getSelectedItem();
-
-                switch(choice) {
-                    case "Games":
-                        frame.add(sp5);
-
-                        frame.setVisible(true);
-                        break;
-                    case "Employee":
-                        frame.add(sp4);
-
-                        frame.setVisible(true);
-                        break;
-                    case "Managers":
-                        frame.add(sp3);
-
-                        frame.setVisible(true);
-                        break;
-                    case "Stores":
-                        frame.add(sp2);
-
-                        frame.setVisible(true);
-                        break;
-                    case "Buyers":
-                        frame.add(sp1);
-
-                        frame.setVisible(true);
-                        break;
-                    case "Rents":
-                        frame.add(sp);
-
-                        frame.setVisible(true);
-                        break;
-                }
+            	
+            	if(sp.isShowing()) {
+            		frame.remove(sp);
+            		frame.add(sp5);
+            		frame.setVisible(true);
+            	}else if(sp1.isShowing()) {
+            		frame.remove(sp1);
+            		frame.add(sp);
+            		frame.setVisible(true);
+            	}else if(sp2.isShowing()) {
+            		frame.remove(sp2);
+            		frame.add(sp1);
+            		frame.setVisible(true);
+            	}else if(sp3.isShowing()) {
+            		frame.remove(sp3);
+            		frame.add(sp2);
+            		frame.setVisible(true);
+            	}else if(sp4.isShowing()) {
+            		frame.remove(sp4);
+            		frame.add(sp3);
+            		frame.setVisible(true);
+            	}else if(sp5.isShowing()) {
+            		frame.remove(sp5);
+            		frame.add(sp4);
+            		frame.setVisible(true);
+            	}
+            	
             }
         });
     }
