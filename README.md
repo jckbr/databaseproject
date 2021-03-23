@@ -5,7 +5,8 @@ This CS 461 Final Project is our Game Rental Database system. The database has f
 as well as a GUI to display and modify, delete, or add entries.
 
 To run this database program, simply run the DatabaseUI.java file. This will output whether the connection to the
-database was successful, then displaying a GUI with entries and buttons.
+database was successful, then displaying a GUI with entries and buttons. The file can be found in the folder:
+./appSrc/src
 
 The GUI will display the Games table by default.
 
