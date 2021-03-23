@@ -4,6 +4,8 @@
 This CS 461 Final Project is our Game Rental Database system. The database has five tables linked together using keys,
 as well as a GUI to display and modify, delete, or add entries.
 
+###Running the program with '1' as an argument will generate all sorts of new data but ONLY IF THERE IS NO DATA IN THE DATABASE AT ALL.
+
 To run this database program, simply run the DatabaseUI.java file. This will output whether the connection to the
 database was successful, then displaying a GUI with entries and buttons. The file can be found in the folder:
 ./appSrc/src
@@ -28,3 +30,5 @@ The search textbox will filter the current displayed table, and only show the en
 information. You will need to press 'Enter' after your search query.
 
 Below the buttons, the currently displayed table will show all entries for the database table in question.
+
+-- Jack Lindner and Kaylee Moore
