@@ -1,5 +1,7 @@
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -60,7 +62,6 @@ public class DatabaseUI
         frame.add(updateButton);
         frame.add(nextButton);
         frame.add(prevButton);
-
 
         // Setting flow style
         frame.setLayout(new FlowLayout(FlowLayout.LEFT));
@@ -241,8 +242,83 @@ public class DatabaseUI
         JComboBox tableChoice = new JComboBox(tableOptions);
 
         frame.add(tableChoice);
+        
+        //add search function after the dropdown
+        JLabel search = new JLabel("Search: ");
+        JTextField searchField = new JTextField();
+        searchField.setColumns(15);
+        frame.add(search);
+        frame.add(searchField);
+        
         frame.add(sp);
 
+        TableRowSorter gameSorter = new TableRowSorter(gameTable.getModel());
+        gameTable.setRowSorter(gameSorter);
+        TableRowSorter employeeSorter = new TableRowSorter(employeeTable.getModel());
+        employeeTable.setRowSorter(employeeSorter);
+        TableRowSorter managerSorter = new TableRowSorter(managerTable.getModel());
+        managerTable.setRowSorter(managerSorter);
+        TableRowSorter storeSorter = new TableRowSorter(storeTable.getModel());
+        storeTable.setRowSorter(storeSorter);
+        TableRowSorter buyerSorter = new TableRowSorter(buyerTable.getModel());
+        buyerTable.setRowSorter(buyerSorter);
+        TableRowSorter rentSorter = new TableRowSorter(rentTable.getModel());
+        rentTable.setRowSorter(rentSorter);
+        
+        searchField.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String text = searchField.getText();
+				String choice = (String) tableChoice.getSelectedItem();
+				
+				switch(choice) {
+				case "Games":
+					if (text.trim().length() == 0) {
+					     gameSorter.setRowFilter(null);
+					  } else {
+					     gameSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+					  }
+    		        break;
+    			case "Employee":
+    				if (text.trim().length() == 0) {
+   				     employeeSorter.setRowFilter(null);
+   				  } else {
+   				     employeeSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+   				  }
+    		        break;
+    			case "Managers":
+    				if (text.trim().length() == 0) {
+   				     managerSorter.setRowFilter(null);
+   				  } else {
+   				     managerSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+   				  }
+    		        break;
+    			case "Stores":
+    				if (text.trim().length() == 0) {
+   				     storeSorter.setRowFilter(null);
+   				  } else {
+   				     storeSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+   				  }
+    		        break;
+    			case "Buyers":
+    				if (text.trim().length() == 0) {
+   				     buyerSorter.setRowFilter(null);
+   				  } else {
+   				     buyerSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+   				  }
+    		        break;
+    			case "Rents":
+    				if (text.trim().length() == 0) {
+   				     rentSorter.setRowFilter(null);
+   				  } else {
+   				     rentSorter.setRowFilter(RowFilter.regexFilter("(?i)" + text));
+   				  }
+    		        break;
+				}
+				
+			}
+        	
+        });
+        
         ActionListener cbAction = new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
         		String choice = (String) tableChoice.getSelectedItem();
